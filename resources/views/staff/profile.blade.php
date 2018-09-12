@@ -8,19 +8,19 @@
 <div class="profile">
 	<div class="tabbable-line tabbable-full-width">
 	    <ul class="nav nav-tabs">
-	                                <li class="active">
-	                            	@if(Auth::user()->id == $user->id)
-	                                    <a href="#tab_1_1" data-toggle="tab"> Overview </a>
-	                                </li>
+	        <li class="active">
+	           @if(Auth::user()->id == $user->id)
+	            <a href="#tab_1_1" data-toggle="tab"> Overview </a>
+	        </li>
 	                                
-	                                <li>
-	                                    <a href="#tab_1_3" data-toggle="tab"> Account </a>
-	                                </li>
-	                                @else
-	                               <li class="active">
-	                                    <a href="#tab_1_1" data-toggle="tab"> Overview </a>
-	                                </li>
-	                                @endif
+			<li>
+				<a href="#tab_1_3" data-toggle="tab"> Account </a>
+			</li>
+			    @else
+			<li class="active">
+					<a href="#tab_1_1" data-toggle="tab"> Overview </a>
+			 </li>
+	            @endif
 	    </ul>
 			<div class="tab-content">
 	                                <div class="tab-pane active" id="tab_1_1">

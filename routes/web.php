@@ -51,4 +51,12 @@ Route::group(['middleware' => 'auth'], function () {
 		'uses' => 'StaffController@search',
 		'as' => 'staff.search'
 	));
+	Route::post('/staff/inventory', array(
+		'uses' => 'InventoryController@save',
+		'as' => 'inventory.save'
+	));
+	Route::post('/inventory', array(
+		'uses' => 'InventoryController@update',
+		'as' => 'updateInventory'
+	));
 });
