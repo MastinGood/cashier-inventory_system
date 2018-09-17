@@ -153,7 +153,13 @@
                                                     <td class="text-center">{{$item->name}}</td>
                                                     <td class="text-center">{{$item->quantity}}</td>
                                                     <td class="text-center">{{$item->price}}</td>
-                                                    <td class="text-center"><a href="#" class="btn green btn-circle btn-small"><i class="fa fa-shopping-cart"></i> Order</a></td>
+                                                    <td class="text-center">
+                                                        @if($item->order)
+                                                        <a class="btn red btn-circle btn-small" disabled="disabled"><i class="fa fa-check"></i> Selected</a>
+                                                        @else
+                                                        <a href="{{route('staff_select_order', ['item_id' => $item->id])}}" class="btn green btn-circle btn-small" id="order"><i class="fa fa-shopping-cart"></i> Order</a>
+                                                        @endif
+                                                    </td>
                                                 </tr>
                                                 @endforeach
                                             @endif
@@ -185,6 +191,9 @@
                     switch(type){
                       case 'success':
                       toastr.success("{{Session::get('message')}}");
+                      break;
+                       case 'warning':
+                      toastr.warning("{{Session::get('message')}}");
                       break;
                     }
                     

@@ -59,4 +59,16 @@ Route::group(['middleware' => 'auth'], function () {
 		'uses' => 'InventoryController@update',
 		'as' => 'updateInventory'
 	));
+	Route::get('/order/{id}', array(
+		'uses' => 'OrderController@select_order',
+		'as' => 'staff_select_order'
+	));
+	Route::get('/delete/{id}', array(
+		'uses' => 'OrderController@delete_order',
+		'as' => 'staff_delete_order'
+	));
+	Route::post('order-to-pay/{order_id}', array(
+		'uses' => 'OrderController@order_to_pay',
+		'as' => 'order_to_pay'
+	));
 });

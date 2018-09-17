@@ -7,6 +7,7 @@ use App\User;
 use App\Profile;
 use App\Inventory;
 use App\Item;
+use App\Order;
 class StaffController extends Controller
 {
     public function inventory_index(){
@@ -18,7 +19,8 @@ class StaffController extends Controller
     	return view('staff.items', compact('items'));
     }
      public function orders_index(){
-    	return view('staff.orders');
+        $items = Order::all();
+    	return view('staff.orders', compact('items'));
     }
      public function total_index(){
     	return view('staff.totals');
