@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Order;
 use App\Item;
 use App\Total;
+use App\Inventory;
 class OrderController extends Controller
 {
     public function select_order($item_id)
@@ -50,6 +51,7 @@ class OrderController extends Controller
             $order->item->itemcode;
             $update_quantity = $order->item->quantity - $quantity;
             Item::where('id', $order->item_id)->update(['quantity'=> $update_quantity]);
+            Inventory::where('id', $order->item_id)->update(['quantity'=> $update_quantity]);
             $total = new Total;
             $total->item_code = $order->item->itemcode;
             $total->quantity = $quantity;

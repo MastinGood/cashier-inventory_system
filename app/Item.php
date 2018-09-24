@@ -9,5 +9,5 @@ class Item extends Model
     public function order(){
     	return $this->hasOne('App\Order','item_id', 'id');
     }
-    
+     
 }

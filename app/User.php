@@ -4,7 +4,6 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-
 class User extends Authenticatable
 {
     use Notifiable;
@@ -29,6 +28,9 @@ class User extends Authenticatable
     
     public function profiles(){
         return $this->hasOne('App\Profile', 'staffid', 'id');
+    }
+   public function userx($id){
+        return User::find($id);
     }
 
 }

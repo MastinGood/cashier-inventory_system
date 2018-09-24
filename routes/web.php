@@ -71,4 +71,12 @@ Route::group(['middleware' => 'auth'], function () {
 		'uses' => 'OrderController@order_to_pay',
 		'as' => 'order_to_pay'
 	));
+	Route::get('/save/total_payment', array(
+		'uses' => 'StaffController@staff_save_report',
+		'as' => 'staff_save_report'
+	));
+	Route::get('/dashboard', array(
+		'uses' => 'StaffController@dashboard',
+		'as' => 'dashboard'
+	));
 });

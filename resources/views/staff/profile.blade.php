@@ -41,7 +41,7 @@
 	                                            <div class="row">
 	                                                <div class="col-md-8 profile-info">
 	                                                	@if(Auth::user()->id == $user->id)
-	                                                    <h1 class="font-green sbold uppercase">{{Auth::user()->name}}</h1>
+	                                                    <h1 class="font-green sbold uppercase">{{Auth::user()->name}} <i class="fa fa-dotted"></i></h1>
 	                                                    @else
 	                                                    <h1 class="font-green sbold uppercase">{{$user->name}}</h1>
 	                                                    @endif
@@ -79,17 +79,17 @@
 	                                                                    <span class="sale-info"> TODAY SOLD
 	                                                                        <i class="fa fa-img-up"></i>
 	                                                                    </span>
-	                                                                    <span class="sale-num"> 23 </span>
-	                                                                </li>
-	                                                                <li>
-	                                                                    <span class="sale-info"> WEEKLY SALES
-	                                                                        <i class="fa fa-img-down"></i>
-	                                                                    </span>
-	                                                                    <span class="sale-num"> 87 </span>
+	                                                                    <span class="sale-num">@if(Auth::user()->id == $user->id) {{$today_sales}} @else {{$user_today_sales}} @endif  </span>
 	                                                                </li>
 	                                                                <li>
 	                                                                    <span class="sale-info"> TOTAL SOLD </span>
-	                                                                    <span class="sale-num"> 2377 </span>
+	                                                                    <span class="sale-num"> @if(Auth::user()->id == $user->id) {{$total_sold}} @else {{$user_total_sold}} @endif  </span>
+	                                                                </li>
+	                                                                 <li>
+	                                                                    <span class="sale-info"> TOTAL SALES
+	                                                                        <i class="fa fa-img-down"></i>
+	                                                                    </span>
+	                                                                    <span class="sale-num"> @if(Auth::user()->id == $user->id) ${{$total_sales}} @else ${{$user_total_sales}} @endif  </span>
 	                                                                </li>
 	                                                            </ul>
 	                                                        </div>
@@ -101,10 +101,10 @@
 	                                            <div class="tabbable-line tabbable-custom-profile">
 	                                                <ul class="nav nav-tabs">
 	                                                    <li class="active">
-	                                                        <a href="#tab_1_11" data-toggle="tab"> Latest Customers </a>
+	                                                        <a href="#tab_1_11" data-toggle="tab"> Today Sold </a>
 	                                                    </li>
 	                                                    <li>
-	                                                        <a href="#tab_1_22" data-toggle="tab"> Feeds </a>
+	                                                        <a href="#tab_1_22" data-toggle="tab"> Past Transaction </a>
 	                                                    </li>
 	                                                </ul>
 	                                                <div class="tab-content">
@@ -112,426 +112,122 @@
 	                                                        <div class="portlet-body">
 	                                                            <table class="table table-striped table-bordered table-advance table-hover">
 	                                                                <thead>
-	                                                                    <tr>
-	                                                                        <th>
-	                                                                            <i class="fa fa-briefcase"></i> Company </th>
-	                                                                        <th class="hidden-xs">
-	                                                                            <i class="fa fa-question"></i> Descrition </th>
-	                                                                        <th>
-	                                                                            <i class="fa fa-bookmark"></i> Amount </th>
-	                                                                        <th> </th>
+	                                                                    <tr class="text-center">
+	                                                                        <th class="text-center">
+	                                                                            <i class="fa fa-briefcase"></i> Item code </th>
+	                                                                        <th class="hidden-xs text-center">
+	                                                                            <i class="fa fa-question"></i> Items Name </th>
+	                                                                        	<th class="hidden-xs text-center">
+	                                                                            <i class="fa fa-question"></i> Quantity </th>
+	                                                                        <th class="text-center">
+	                                                                            <i class="fa fa-bookmark"></i> Sub Total </th>
+	                                                                        
 	                                                                    </tr>
 	                                                                </thead>
 	                                                                <tbody>
+	                                                                  @if(Auth::user()->id == $user->id)	
+	                                                                  @if(count($today_trans)>0)
+	                                                                  @foreach($today_trans as $today_tran)
 	                                                                    <tr>
-	                                                                        <td>
-	                                                                            <a href="javascript:;"> Pixel Ltd </a>
-	                                                                        </td>
-	                                                                        <td class="hidden-xs"> Server hardware purchase </td>
-	                                                                        <td> 52560.10$
+	                                                                       <td class="text-center">{{$today_tran->item_code}}</td>
+	                                                                       <td class="hidden-xs text-center"> {{$today_tran->name}} </td>
+	                                                                       <td class="hidden-xs text-center"> {{$today_tran->quantity}} </td>
+	                                                                       <td class="text-center"> ${{$today_tran->sub_total}}
 	                                                                            <span class="label label-success label-sm"> Paid </span>
 	                                                                        </td>
-	                                                                        <td>
-	                                                                            <a class="btn btn-sm grey-salsa btn-outline" href="javascript:;"> View </a>
-	                                                                        </td>
 	                                                                    </tr>
+	                                                                    @endforeach
+	                                                                    @endif
+	                                                                    @else
+																		 @if(count($user_today_trans)>0)
+	                                                                  	 @foreach($user_today_trans as $user_today_tran)
 	                                                                    <tr>
-	                                                                        <td>
-	                                                                            <a href="javascript:;"> Smart House </a>
-	                                                                        </td>
-	                                                                        <td class="hidden-xs"> Office furniture purchase </td>
-	                                                                        <td> 5760.00$
-	                                                                            <span class="label label-warning label-sm"> Pending </span>
-	                                                                        </td>
-	                                                                        <td>
-	                                                                            <a class="btn btn-sm grey-salsa btn-outline" href="javascript:;"> View </a>
-	                                                                        </td>
-	                                                                    </tr>
-	                                                                    <tr>
-	                                                                        <td>
-	                                                                            <a href="javascript:;"> FoodMaster Ltd </a>
-	                                                                        </td>
-	                                                                        <td class="hidden-xs"> Company Anual Dinner Catering </td>
-	                                                                        <td> 12400.00$
+	                                                                       <td class="text-center">{{$user_today_tran->item_code}}</td>
+	                                                                       <td class="hidden-xs text-center"> {{$user_today_tran->name}} </td>
+	                                                                       <td class="hidden-xs text-center"> {{$user_today_tran->quantity}} </td>
+	                                                                       <td class="text-center"> ${{$user_today_tran->sub_total}}
 	                                                                            <span class="label label-success label-sm"> Paid </span>
 	                                                                        </td>
-	                                                                        <td>
-	                                                                            <a class="btn btn-sm grey-salsa btn-outline" href="javascript:;"> View </a>
-	                                                                        </td>
 	                                                                    </tr>
-	                                                                    <tr>
-	                                                                        <td>
-	                                                                            <a href="javascript:;"> WaterPure Ltd </a>
-	                                                                        </td>
-	                                                                        <td class="hidden-xs"> Payment for Jan 2013 </td>
-	                                                                        <td> 610.50$
-	                                                                            <span class="label label-danger label-sm"> Overdue </span>
-	                                                                        </td>
-	                                                                        <td>
-	                                                                            <a class="btn btn-sm grey-salsa btn-outline" href="javascript:;"> View </a>
-	                                                                        </td>
-	                                                                    </tr>
-	                                                                    <tr>
-	                                                                        <td>
-	                                                                            <a href="javascript:;"> Pixel Ltd </a>
-	                                                                        </td>
-	                                                                        <td class="hidden-xs"> Server hardware purchase </td>
-	                                                                        <td> 52560.10$
-	                                                                            <span class="label label-success label-sm"> Paid </span>
-	                                                                        </td>
-	                                                                        <td>
-	                                                                            <a class="btn btn-sm grey-salsa btn-outline" href="javascript:;"> View </a>
-	                                                                        </td>
-	                                                                    </tr>
-	                                                                    <tr>
-	                                                                        <td>
-	                                                                            <a href="javascript:;"> Smart House </a>
-	                                                                        </td>
-	                                                                        <td class="hidden-xs"> Office furniture purchase </td>
-	                                                                        <td> 5760.00$
-	                                                                            <span class="label label-warning label-sm"> Pending </span>
-	                                                                        </td>
-	                                                                        <td>
-	                                                                            <a class="btn btn-sm grey-salsa btn-outline" href="javascript:;"> View </a>
-	                                                                        </td>
-	                                                                    </tr>
-	                                                                    <tr>
-	                                                                        <td>
-	                                                                            <a href="javascript:;"> FoodMaster Ltd </a>
-	                                                                        </td>
-	                                                                        <td class="hidden-xs"> Company Anual Dinner Catering </td>
-	                                                                        <td> 12400.00$
-	                                                                            <span class="label label-success label-sm"> Paid </span>
-	                                                                        </td>
-	                                                                        <td>
-	                                                                            <a class="btn btn-sm grey-salsa btn-outline" href="javascript:;"> View </a>
-	                                                                        </td>
-	                                                                    </tr>
+	                                                                    @endforeach
+	                                                                    @endif
+	                                                                    @endif
 	                                                                </tbody>
 	                                                            </table>
+	                                                            @if(Auth::user()->id == $user->id)
+	                                                            <div class="pull-right">
+													                  <p class="pull-right">{{$today_trans->links()}}</p>
+													                </div>
+													                @else
+													                <div class="pull-right">
+													                  <p class="pull-right">{{$user_today_trans->links()}}</p>
+													                </div>
+													                @endif
 	                                                        </div>
 	                                                    </div>
 	                                                    <!--tab-pane-->
 	                                                    <div class="tab-pane" id="tab_1_22">
 	                                                        <div class="tab-pane active" id="tab_1_1_1">
-	                                                            <div class="scroller" data-height="290px" data-always-visible="1" data-rail-visible1="1">
-	                                                                <ul class="feeds">
-	                                                                    <li>
-	                                                                        <div class="col1">
-	                                                                            <div class="cont">
-	                                                                                <div class="cont-col1">
-	                                                                                    <div class="label label-success">
-	                                                                                        <i class="fa fa-bell-o"></i>
-	                                                                                    </div>
-	                                                                                </div>
-	                                                                                <div class="cont-col2">
-	                                                                                    <div class="desc"> You have 4 pending tasks.
-	                                                                                        <span class="label label-danger label-sm"> Take action
-	                                                                                            <i class="fa fa-share"></i>
-	                                                                                        </span>
-	                                                                                    </div>
-	                                                                                </div>
-	                                                                            </div>
-	                                                                        </div>
-	                                                                        <div class="col2">
-	                                                                            <div class="date"> Just now </div>
-	                                                                        </div>
-	                                                                    </li>
-	                                                                    <li>
-	                                                                        <a href="javascript:;">
-	                                                                            <div class="col1">
-	                                                                                <div class="cont">
-	                                                                                    <div class="cont-col1">
-	                                                                                        <div class="label label-success">
-	                                                                                            <i class="fa fa-bell-o"></i>
-	                                                                                        </div>
-	                                                                                    </div>
-	                                                                                    <div class="cont-col2">
-	                                                                                        <div class="desc"> New version v1.4 just lunched! </div>
-	                                                                                    </div>
-	                                                                                </div>
-	                                                                            </div>
-	                                                                            <div class="col2">
-	                                                                                <div class="date"> 20 mins </div>
-	                                                                            </div>
-	                                                                        </a>
-	                                                                    </li>
-	                                                                    <li>
-	                                                                        <div class="col1">
-	                                                                            <div class="cont">
-	                                                                                <div class="cont-col1">
-	                                                                                    <div class="label label-danger">
-	                                                                                        <i class="fa fa-bolt"></i>
-	                                                                                    </div>
-	                                                                                </div>
-	                                                                                <div class="cont-col2">
-	                                                                                    <div class="desc"> Database server #12 overloaded. Please fix the issue. </div>
-	                                                                                </div>
-	                                                                            </div>
-	                                                                        </div>
-	                                                                        <div class="col2">
-	                                                                            <div class="date"> 24 mins </div>
-	                                                                        </div>
-	                                                                    </li>
-	                                                                    <li>
-	                                                                        <div class="col1">
-	                                                                            <div class="cont">
-	                                                                                <div class="cont-col1">
-	                                                                                    <div class="label label-info">
-	                                                                                        <i class="fa fa-bullhorn"></i>
-	                                                                                    </div>
-	                                                                                </div>
-	                                                                                <div class="cont-col2">
-	                                                                                    <div class="desc"> New order received. Please take care of it. </div>
-	                                                                                </div>
-	                                                                            </div>
-	                                                                        </div>
-	                                                                        <div class="col2">
-	                                                                            <div class="date"> 30 mins </div>
-	                                                                        </div>
-	                                                                    </li>
-	                                                                    <li>
-	                                                                        <div class="col1">
-	                                                                            <div class="cont">
-	                                                                                <div class="cont-col1">
-	                                                                                    <div class="label label-success">
-	                                                                                        <i class="fa fa-bullhorn"></i>
-	                                                                                    </div>
-	                                                                                </div>
-	                                                                                <div class="cont-col2">
-	                                                                                    <div class="desc"> New order received. Please take care of it. </div>
-	                                                                                </div>
-	                                                                            </div>
-	                                                                        </div>
-	                                                                        <div class="col2">
-	                                                                            <div class="date"> 40 mins </div>
-	                                                                        </div>
-	                                                                    </li>
-	                                                                    <li>
-	                                                                        <div class="col1">
-	                                                                            <div class="cont">
-	                                                                                <div class="cont-col1">
-	                                                                                    <div class="label label-warning">
-	                                                                                        <i class="fa fa-plus"></i>
-	                                                                                    </div>
-	                                                                                </div>
-	                                                                                <div class="cont-col2">
-	                                                                                    <div class="desc"> New user registered. </div>
-	                                                                                </div>
-	                                                                            </div>
-	                                                                        </div>
-	                                                                        <div class="col2">
-	                                                                            <div class="date"> 1.5 hours </div>
-	                                                                        </div>
-	                                                                    </li>
-	                                                                    <li>
-	                                                                        <div class="col1">
-	                                                                            <div class="cont">
-	                                                                                <div class="cont-col1">
-	                                                                                    <div class="label label-success">
-	                                                                                        <i class="fa fa-bell-o"></i>
-	                                                                                    </div>
-	                                                                                </div>
-	                                                                                <div class="cont-col2">
-	                                                                                    <div class="desc"> Web server hardware needs to be upgraded.
-	                                                                                        <span class="label label-inverse label-sm"> Overdue </span>
-	                                                                                    </div>
-	                                                                                </div>
-	                                                                            </div>
-	                                                                        </div>
-	                                                                        <div class="col2">
-	                                                                            <div class="date"> 2 hours </div>
-	                                                                        </div>
-	                                                                    </li>
-	                                                                    <li>
-	                                                                        <div class="col1">
-	                                                                            <div class="cont">
-	                                                                                <div class="cont-col1">
-	                                                                                    <div class="label label-default">
-	                                                                                        <i class="fa fa-bullhorn"></i>
-	                                                                                    </div>
-	                                                                                </div>
-	                                                                                <div class="cont-col2">
-	                                                                                    <div class="desc"> New order received. Please take care of it. </div>
-	                                                                                </div>
-	                                                                            </div>
-	                                                                        </div>
-	                                                                        <div class="col2">
-	                                                                            <div class="date"> 3 hours </div>
-	                                                                        </div>
-	                                                                    </li>
-	                                                                    <li>
-	                                                                        <div class="col1">
-	                                                                            <div class="cont">
-	                                                                                <div class="cont-col1">
-	                                                                                    <div class="label label-warning">
-	                                                                                        <i class="fa fa-bullhorn"></i>
-	                                                                                    </div>
-	                                                                                </div>
-	                                                                                <div class="cont-col2">
-	                                                                                    <div class="desc"> New order received. Please take care of it. </div>
-	                                                                                </div>
-	                                                                            </div>
-	                                                                        </div>
-	                                                                        <div class="col2">
-	                                                                            <div class="date"> 5 hours </div>
-	                                                                        </div>
-	                                                                    </li>
-	                                                                    <li>
-	                                                                        <div class="col1">
-	                                                                            <div class="cont">
-	                                                                                <div class="cont-col1">
-	                                                                                    <div class="label label-info">
-	                                                                                        <i class="fa fa-bullhorn"></i>
-	                                                                                    </div>
-	                                                                                </div>
-	                                                                                <div class="cont-col2">
-	                                                                                    <div class="desc"> New order received. Please take care of it. </div>
-	                                                                                </div>
-	                                                                            </div>
-	                                                                        </div>
-	                                                                        <div class="col2">
-	                                                                            <div class="date"> 18 hours </div>
-	                                                                        </div>
-	                                                                    </li>
-	                                                                    <li>
-	                                                                        <div class="col1">
-	                                                                            <div class="cont">
-	                                                                                <div class="cont-col1">
-	                                                                                    <div class="label label-default">
-	                                                                                        <i class="fa fa-bullhorn"></i>
-	                                                                                    </div>
-	                                                                                </div>
-	                                                                                <div class="cont-col2">
-	                                                                                    <div class="desc"> New order received. Please take care of it. </div>
-	                                                                                </div>
-	                                                                            </div>
-	                                                                        </div>
-	                                                                        <div class="col2">
-	                                                                            <div class="date"> 21 hours </div>
-	                                                                        </div>
-	                                                                    </li>
-	                                                                    <li>
-	                                                                        <div class="col1">
-	                                                                            <div class="cont">
-	                                                                                <div class="cont-col1">
-	                                                                                    <div class="label label-info">
-	                                                                                        <i class="fa fa-bullhorn"></i>
-	                                                                                    </div>
-	                                                                                </div>
-	                                                                                <div class="cont-col2">
-	                                                                                    <div class="desc"> New order received. Please take care of it. </div>
-	                                                                                </div>
-	                                                                            </div>
-	                                                                        </div>
-	                                                                        <div class="col2">
-	                                                                            <div class="date"> 22 hours </div>
-	                                                                        </div>
-	                                                                    </li>
-	                                                                    <li>
-	                                                                        <div class="col1">
-	                                                                            <div class="cont">
-	                                                                                <div class="cont-col1">
-	                                                                                    <div class="label label-default">
-	                                                                                        <i class="fa fa-bullhorn"></i>
-	                                                                                    </div>
-	                                                                                </div>
-	                                                                                <div class="cont-col2">
-	                                                                                    <div class="desc"> New order received. Please take care of it. </div>
-	                                                                                </div>
-	                                                                            </div>
-	                                                                        </div>
-	                                                                        <div class="col2">
-	                                                                            <div class="date"> 21 hours </div>
-	                                                                        </div>
-	                                                                    </li>
-	                                                                    <li>
-	                                                                        <div class="col1">
-	                                                                            <div class="cont">
-	                                                                                <div class="cont-col1">
-	                                                                                    <div class="label label-info">
-	                                                                                        <i class="fa fa-bullhorn"></i>
-	                                                                                    </div>
-	                                                                                </div>
-	                                                                                <div class="cont-col2">
-	                                                                                    <div class="desc"> New order received. Please take care of it. </div>
-	                                                                                </div>
-	                                                                            </div>
-	                                                                        </div>
-	                                                                        <div class="col2">
-	                                                                            <div class="date"> 22 hours </div>
-	                                                                        </div>
-	                                                                    </li>
-	                                                                    <li>
-	                                                                        <div class="col1">
-	                                                                            <div class="cont">
-	                                                                                <div class="cont-col1">
-	                                                                                    <div class="label label-default">
-	                                                                                        <i class="fa fa-bullhorn"></i>
-	                                                                                    </div>
-	                                                                                </div>
-	                                                                                <div class="cont-col2">
-	                                                                                    <div class="desc"> New order received. Please take care of it. </div>
-	                                                                                </div>
-	                                                                            </div>
-	                                                                        </div>
-	                                                                        <div class="col2">
-	                                                                            <div class="date"> 21 hours </div>
-	                                                                        </div>
-	                                                                    </li>
-	                                                                    <li>
-	                                                                        <div class="col1">
-	                                                                            <div class="cont">
-	                                                                                <div class="cont-col1">
-	                                                                                    <div class="label label-info">
-	                                                                                        <i class="fa fa-bullhorn"></i>
-	                                                                                    </div>
-	                                                                                </div>
-	                                                                                <div class="cont-col2">
-	                                                                                    <div class="desc"> New order received. Please take care of it. </div>
-	                                                                                </div>
-	                                                                            </div>
-	                                                                        </div>
-	                                                                        <div class="col2">
-	                                                                            <div class="date"> 22 hours </div>
-	                                                                        </div>
-	                                                                    </li>
-	                                                                    <li>
-	                                                                        <div class="col1">
-	                                                                            <div class="cont">
-	                                                                                <div class="cont-col1">
-	                                                                                    <div class="label label-default">
-	                                                                                        <i class="fa fa-bullhorn"></i>
-	                                                                                    </div>
-	                                                                                </div>
-	                                                                                <div class="cont-col2">
-	                                                                                    <div class="desc"> New order received. Please take care of it. </div>
-	                                                                                </div>
-	                                                                            </div>
-	                                                                        </div>
-	                                                                        <div class="col2">
-	                                                                            <div class="date"> 21 hours </div>
-	                                                                        </div>
-	                                                                    </li>
-	                                                                    <li>
-	                                                                        <div class="col1">
-	                                                                            <div class="cont">
-	                                                                                <div class="cont-col1">
-	                                                                                    <div class="label label-info">
-	                                                                                        <i class="fa fa-bullhorn"></i>
-	                                                                                    </div>
-	                                                                                </div>
-	                                                                                <div class="cont-col2">
-	                                                                                    <div class="desc"> New order received. Please take care of it. </div>
-	                                                                                </div>
-	                                                                            </div>
-	                                                                        </div>
-	                                                                        <div class="col2">
-	                                                                            <div class="date"> 22 hours </div>
-	                                                                        </div>
-	                                                                    </li>
-	                                                                </ul>
-	                                                            </div>
+	                                                            <table class="table table-striped table-bordered table-advance table-hover">
+	                                                                <thead>
+	                                                                    <tr class="text-center">
+	                                                                        <th class="text-center">
+	                                                                            <i class="fa fa-briefcase"></i> Item code </th>
+	                                                                        <th class="hidden-xs text-center">
+	                                                                            <i class="fa fa-question"></i> Items Name </th>
+	                                                                            <th class="hidden-xs text-center">
+	                                                                            <i class="fa fa-question"></i> Date Purchase </th>
+	                                                                        	<th class="hidden-xs text-center">
+	                                                                            <i class="fa fa-question"></i> Quantity </th>
+	                                                                        <th class="text-center">
+	                                                                            <i class="fa fa-bookmark"></i> Sub Total </th>
+	                                                                        
+	                                                                    </tr>
+	                                                                </thead>
+	                                                                <tbody>
+																	 @if(Auth::user()->id == $user->id)
+	                                                                  @if(count($past_trans)>0)
+	                                                                  @foreach($past_trans as $past_tran)
+	                                                                    <tr>
+	                                                                       <td class="text-center">{{$past_tran->item_code}}</td>
+	                                                                       <td class="hidden-xs text-center"> {{$past_tran->name}} </td>
+	                                                                       <td class="hidden-xs text-center"> {{$past_tran->save_date}} </td>
+	                                                                       <td class="hidden-xs text-center"> {{$past_tran->quantity}} </td>
+	                                                                       <td class="text-center"> ${{$past_tran->sub_total}}
+	                                                                            <span class="label label-success label-sm"> Paid </span>
+	                                                                        </td>
+	                                                                    </tr>
+	                                                                    @endforeach
+	                                                                    @endif
+																		@else
+																		@if(count($user_past_trans)>0)
+	                                                                  @foreach($user_past_trans as $user_past_tran)
+	                                                                    <tr>
+	                                                                       <td class="text-center">{{$user_past_tran->item_code}}</td>
+	                                                                       <td class="hidden-xs text-center"> {{$user_past_tran->name}} </td>
+	                                                                       <td class="hidden-xs text-center"> {{$user_past_tran->save_date}} </td>
+	                                                                       <td class="hidden-xs text-center"> {{$user_past_tran->quantity}} </td>
+	                                                                       <td class="text-center"> ${{$user_past_tran->sub_total}}
+	                                                                            <span class="label label-success label-sm"> Paid </span>
+	                                                                        </td>
+	                                                                    </tr>
+	                                                                    @endforeach
+	                                                                    @endif
+																		@endif
+	                                                                </tbody>
+	                                                               
+													                  
+													                
+	                                                            </table>
+	                                                            @if(Auth::user()->id == $user->id)
+	                                                               <div class="pull-right">
+													                  <p class="pull-right">{{$past_trans->links()}}</p>
+													                </div>
+													             @else
+													             <div class="pull-right">
+													                  <p class="pull-right">{{$user_past_trans->links()}}</p>
+													                </div>
+													             @endif
 	                                                        </div>
 	                                                    </div>
 	                                                    <!--tab-pane-->
@@ -652,9 +348,6 @@
 	                                                            <button type="submit" data-loading-text="Loading..." class="btn btn-primary mt-ladda-btn ladda-button mt-progress-demo" data-style="expand-left">
 				                                                    <span class="ladda-label">Update profile</span>
 				                                                </button>
-				                                                <button type="button" data-loading-text="Loading..." class="btn btn-primary mt-ladda-btn ladda-button mt-progress-demo" data-style="expand-left">
-                                                    <span class="ladda-label">Loading State</span>
-                                                </button>
 	                                                            <a href="javascript:;" class="btn default"> Cancel </a>
 	                                                        </div>
 	                                                    </form>
