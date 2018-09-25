@@ -360,72 +360,21 @@
                                                             </tr>
                                                         </thead>
                                                         <tbody>
+                                                            @if(count($top_sell)>0)
+                                                            @foreach($top_sell as $sell)
                                                             <tr>
                                                                 <td>
-                                                                    <a href="javascript:;"> Apple iPhone 4s - 16GB - Black </a>
+                                                                    {{$sell->name}}
                                                                 </td>
-                                                                <td> $625.50 </td>
-                                                                <td> 809 </td>
+                                                                <td>{{$sell->item_code}} </td>
+                                                                <td> {{$sell->top_selling}} </td>
                                                                 <td>
                                                                     <a href="javascript:;" class="btn btn-sm btn-default">
                                                                         <i class="fa fa-search"></i> View </a>
                                                                 </td>
                                                             </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <a href="javascript:;"> Samsung Galaxy S III SGH-I747 - 16GB </a>
-                                                                </td>
-                                                                <td> $915.50 </td>
-                                                                <td> 6709 </td>
-                                                                <td>
-                                                                    <a href="javascript:;" class="btn btn-sm btn-default">
-                                                                        <i class="fa fa-search"></i> View </a>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <a href="javascript:;"> Motorola Droid 4 XT894 - 16GB - Black </a>
-                                                                </td>
-                                                                <td> $878.50 </td>
-                                                                <td> 784 </td>
-                                                                <td>
-                                                                    <a href="javascript:;" class="btn btn-sm btn-default">
-                                                                        <i class="fa fa-search"></i> View </a>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <a href="javascript:;"> Samsung Galaxy Note 4 </a>
-                                                                </td>
-                                                                <td> $925.50 </td>
-                                                                <td> 21245 </td>
-                                                                <td>
-                                                                    <a href="javascript:;" class="btn btn-sm btn-default">
-                                                                        <i class="fa fa-search"></i> View </a>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <a href="javascript:;"> Regatta Luca 3 in 1 Jacket </a>
-                                                                </td>
-                                                                <td> $25.50 </td>
-                                                                <td> 1245 </td>
-                                                                <td>
-                                                                    <a href="javascript:;" class="btn btn-sm btn-default">
-                                                                        <i class="fa fa-search"></i> View </a>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <a href="javascript:;"> Samsung Galaxy Note 3 </a>
-                                                                </td>
-                                                                <td> $925.50 </td>
-                                                                <td> 21245 </td>
-                                                                <td>
-                                                                    <a href="javascript:;" class="btn btn-sm btn-default">
-                                                                        <i class="fa fa-search"></i> View </a>
-                                                                </td>
-                                                            </tr>
+                                                            @endforeach
+                                                            @endif
                                                         </tbody>
                                                     </table>
                                                 </div>
@@ -456,7 +405,7 @@
                                                                     @endif
                                                                 </td>
                                                                 <td>
-                                                                    <a href="javascript:;" class="btn btn-sm btn-default">
+                                                                    <a href="{{route('profile', array('id' => $user->id))}}" class="btn btn-sm btn-default">
                                                                         <i class="fa fa-search"></i> View </a>
                                                                 </td>
                                                             </tr>

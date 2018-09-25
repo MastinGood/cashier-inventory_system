@@ -106,7 +106,13 @@ class StaffController extends Controller
                                 ->orderBy('today_sale' ,'DESC')
                                 ->get();
         }
+        $top_sell = DB::table('reports')
+                    ->select('name','item_code', DB::raw('COUNT(sub_total) as top_selling'))
+                    ->groupBy('name','item_code')
+                    ->orderBy('top_selling','DESC')
+                    ->limit(5)
+                    ->get();
     
-        return view('staff.dashboard', compact('online_users','tots','sold', 'today_sales','userz', 'recent_user', 'rep', 'salezz','today_sold'));
+        return view('staff.dashboard', compact('top_sell','online_users','tots','sold', 'today_sales','userz', 'recent_user', 'rep', 'salezz','today_sold'));
     }
 }
