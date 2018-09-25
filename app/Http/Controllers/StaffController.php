@@ -80,6 +80,7 @@ class StaffController extends Controller
          return redirect()->back()->with('info', 'Successfully submitted report!!');
     }
     public function dashboard(){
+        $online_users = User::all();
         $recent_user = User::orderBy('created_at', 'DESC')->get();
         $sales = Report::all();
         $userz = User::all()->count();
@@ -106,6 +107,6 @@ class StaffController extends Controller
                                 ->get();
         }
     
-        return view('staff.dashboard', compact('tots','sold', 'today_sales','userz', 'recent_user', 'rep', 'salezz','today_sold'));
+        return view('staff.dashboard', compact('online_users','tots','sold', 'today_sales','userz', 'recent_user', 'rep', 'salezz','today_sold'));
     }
 }

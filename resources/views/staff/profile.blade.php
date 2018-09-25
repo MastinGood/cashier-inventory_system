@@ -29,7 +29,7 @@
 	                                            <ul class="list-unstyled profile-nav">
 	                                                <li>
 	                                                	@if(isset($user->profiles->image) && $user->profiles->image != null)
-	                                                    <img src="{{$user->profiles->image}}" class="img-responsive pic-bordered" alt="" />
+	                                                    <img src="{{$user->profiles->image}}" class="img-responsive pic-bordered" alt="" width="100" height="100" />
 	                                                    <a href="javascript:;" class="profile-edit"> edit </a>
 	                                                    @else
 	                                                    <img src="{{asset('assets/img/placeholder.jpg')}}" class="img-responsive">
@@ -41,9 +41,22 @@
 	                                            <div class="row">
 	                                                <div class="col-md-8 profile-info">
 	                                                	@if(Auth::user()->id == $user->id)
-	                                                    <h1 class="font-green sbold uppercase">{{Auth::user()->name}} <i class="fa fa-dotted"></i></h1>
+	                                                    <h1 class="font-green sbold uppercase">{{Auth::user()->name}} 
+	                                                    	@if($user->isOnline())
+	                                                    	<small style="font-style: normal; font-size: 10px;position: absolute;margin: 6px 10px;"><i class="fa fa-circle" style="font-size: 10px;color: limegreen;"></i> online</small>
+	                                                    	@else
+	                                                    	<small style="font-style: normal; font-size: 10px;position: absolute;margin: 6px 10px;"><i class="fa fa-circle" style="font-size: 10px;color: limegreen;"></i> offline</small>
+	                                                    	@endif
+	                                                    </h1>
 	                                                    @else
-	                                                    <h1 class="font-green sbold uppercase">{{$user->name}}</h1>
+	                                                    <h1 class="font-green sbold uppercase">{{$user->name}}
+	                                                    	@if($user->isOnline())
+	                                                    	<small style="font-style: normal; font-size: 10px;position: absolute;margin: 6px 10px;"><i class="fa fa-circle" style="font-size: 10px;color: limegreen;"></i> online</small>
+	                                                    	@else
+	                                                    	<small style="font-style: normal; font-size: 10px;position: absolute;margin: 6px 10px;">
+	                                                    	<i class="fa fa-circle" style="font-size: 10px;"></i> offline
+	                                                    	</small>
+	                                                    	@endif</h1>
 	                                                    @endif
 	                                                    <p> 
 	                                                    	@if(isset($profile->about) && $profile->about!= null)
@@ -251,7 +264,7 @@
 	                                        <div class="col-md-9">
 	                                            <div class="tab-content">
 	                                                <div id="tab_1-1" class="tab-pane active">
-	                                                    <form role="form" action="{{route('update_profile', array('id' => Auth::user()->id))}}" method="post">
+	                                                    <form role="form" action="{{route('update_profile', array('id' => Auth::user()->id))}}" method="POST" enctype="multipart/form-data">
 	                                                    	{{csrf_field()}}
 	                                                        <div class="form-group{{ $errors->has('address') ? ' has-error' : '' }}">
 	                                                            <label class="control-label">Address</label>
@@ -334,7 +347,7 @@
 	                                                                    <span class="btn default btn-file">
 	                                                                        <span class="fileinput-new"> Select image </span>
 	                                                                        <span class="fileinput-exists"> Change </span>
-	                                                                        <input type="file" value="{{isset($profile->image) ? $profile->image :''}}" name="image"> </span>
+	                                                                        <input type="file" value="{{isset($profile->image) ? $profile->image :''}}" name="images"> </span>
 	                                                                    <a href="javascript:;" class="btn default fileinput-exists" data-dismiss="fileinput"> Remove </a>
 	                                                                </div>
 	                                                                @if ($errors->has('image'))

@@ -11,6 +11,7 @@ use App\Report;
 use App\Order;
 use App\Item;
 use Carbon\Carbon;
+use App\Cache;
 class ProfileController extends Controller
 {
     public function profile($id){
@@ -60,7 +61,7 @@ class ProfileController extends Controller
     	$pro->save();
     	}
 
-    	return view('staff.profile',compact('profile', 'user', 'today_sales','total_sales', 'total_sold', 'today_trans', 'past_trans','user_today_sales','user_total_sales', 'user_total_sold', 'user_today_trans', 'user_past_trans'));
+    	return view('staff.profile',compact('id','profile', 'user', 'today_sales','total_sales', 'total_sold', 'today_trans', 'past_trans','user_today_sales','user_total_sales', 'user_total_sold', 'user_today_trans', 'user_past_trans'));
     }
     public function update_profile(Request $request,$id){
     	$this->validate($request,[
@@ -70,23 +71,30 @@ class ProfileController extends Controller
     		'mobileno' => 'required',
     		'interests' => 'required',
     		'occupation' => 'required',
-    		'site' => 'required'
+    		'site' => 'required',
+    		
     	]);
-    	$data = array(
-    		'address' => $request->input('address'),
-    		'email' => $request->input('email'),
-    		'religion' => $request->input('religion'),
-    		'mobileno' => $request->input('mobileno'),
-    		'interests' => $request->input('interests'),
-    		'occupation' => $request->input('occupation'),
-    		'about' => $request->input('about'),
-    		'site' => $request->input('site')
-    	);
+    	$data= Profile::where('staffid', $id)->first();  
+        $data->update($request->all());
+
+    if ($request->hasFile('images'))
+    {	
+    		$file = $request->file('images');        
+		    $timestamps = str_replace([' ',':'],'-', Carbon::now()->toDateTimeString());
+            $name = $timestamps. '-' .$file->getClientOriginalName();
+            $data->image = $name;
+			$file->move(storage_path().'/uploads/', $name);  
+             dd($$file);
+            $data->save();
+		   
+        }     
+       
+    	
     	$notification = array(
             'message' => 'Your profile successfully updated!',
             'alert-type' => 'success'
         );
-    	Profile::where('staffid', $id)->update($data);
+    	
     	return redirect()->back()->with($notification);
 
     }
