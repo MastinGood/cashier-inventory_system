@@ -150,66 +150,138 @@
                                     <div class="actions">
                                         <div class="btn-group btn-group-devided" data-toggle="buttons">
                                             <label class="btn btn-transparent blue-oleo btn-no-border btn-outline btn-circle btn-sm active">
-                                                <input type="radio" name="options" class="toggle" id="option1">Today</label>
-                                                
+                                                <input type="radio" name="options" class="toggle" id="option1">Today</label>     
                                         </div>
                                     </div>
                                 </div>
-                                <div class="portlet-body tab-content">
-                                    <div class="row number-stats margin-bottom-30">
-                                        <div class="col-md-6 col-sm-6 col-xs-6">
-                                            <div class="stat-left">
-                                                <div class="stat-chart">
-                                                    <!-- do not line break "sparkline_bar" div. sparkline chart has an issue when the container div has line break -->
-                                                    <div id="sparkline_bar"></div>
+                                <div class="tabbable-line">
+                                    <ul class="nav nav-tabs">
+                                            <li class="active">
+                                                <a href="#today" data-toggle="tab"> Today's Activity </a>
+                                            </li>
+                                            <li>
+                                                <a href="#past" data-toggle="tab"> Yesterday </a>
+                                            </li>
+ 
+                                        </ul>
+                                        
+                                        <div class="portlet-body">
+                                            <div class="tab-content">
+                                            <div class="tab-pane active" id="today">
+                                            <div class="row number-stats margin-bottom-30">
+                                                <div class="col-md-6 col-sm-6 col-xs-6">
+                                                    <div class="stat-left">
+                                                        <div class="stat-chart">
+                                                            <!-- do not line break "sparkline_bar" div. sparkline chart has an issue when the container div has line break -->
+                                                            <div id="sparkline_bar"></div>
+                                                        </div>
+                                                        <div class="stat-number">
+                                                            <div class="title"> Today's Sales </div>
+                                                            <div class="number text-center"> ${{$salezz}} </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                                <div class="stat-number">
-                                                    <div class="title"> Today's Sales </div>
-                                                    <div class="number"> ${{$salezz}} </div>
+                                                <div class="col-md-6 col-sm-6 col-xs-6">
+                                                    <div class="stat-right">
+                                                        <div class="stat-chart">
+                                                            <!-- do not line break "sparkline_bar" div. sparkline chart has an issue when the container div has line break -->
+                                                            <div id="sparkline_bar2"></div>
+                                                        </div>
+                                                        <div class="stat-number">
+                                                            <div class="title"> Today's Sold </div>
+                                                            <div class="number text-center"> {{$today_sold}} </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="col-md-6 col-sm-6 col-xs-6">
-                                            <div class="stat-right">
-                                                <div class="stat-chart">
-                                                    <!-- do not line break "sparkline_bar" div. sparkline chart has an issue when the container div has line break -->
-                                                    <div id="sparkline_bar2"></div>
+                                            <div class="table-scrollable table-scrollable-borderless">
+                                                <table class="table table-hover table-light">
+                                                    <thead>
+                                                        <tr class="uppercase">
+                                                            <th colspan="2" class="text-center"> EMPLOYEE </th>
+                                                            <th class="text-center"> Today's Sales </th>
+                                                            <th class="text-center"> Today's Sold </th>
+                                                            
+                                                        </tr>
+                                                    </thead>
+        											@if(count($yesterday)>0)
+        											@foreach($yesterday as $yes)
+                                                    <tr>
+                                                        <td class="fit">
+                                                            <img class="user-pic rounded" src="../assets/pages/media/users/avatar4.jpg"> </td>
+                                                        <td>
+                                                            <a href="{{route('profile', array('id' => $yes->save_id))}}" class="primary-link">
+                                                            	{{$yes->save_by}}</a>
+                                                        </td>
+                                                        <td class="text-center"> ${{$yes->yesterday_sale}} </td>
+                                                        <td class="text-center"> {{$yes->yesterday_sold}} </td>
+                                                        
+                                                    </tr>
+                                                    @endforeach
+                                                    @endif
+                                                </table>
+                                            </div>
+                                            </div>
+                                            <div class="tab-pane" id="past">
+                                            <div class="row number-stats margin-bottom-30">
+                                                <div class="col-md-6 col-sm-6 col-xs-6">
+                                                    <div class="stat-left">
+                                                        <div class="stat-chart">
+                                                            <!-- do not line break "sparkline_bar" div. sparkline chart has an issue when the container div has line break -->
+                                                            <div id="sparkline_bar"></div>
+                                                        </div>
+                                                        <div class="stat-number">
+                                                            <div class="title"> Yesterday's Sales </div>
+                                                            <div class="number text-center"> ${{$salezz}} </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                                <div class="stat-number">
-                                                    <div class="title"> Today's Sold </div>
-                                                    <div class="number"> {{$today_sold}} </div>
+                                                <div class="col-md-6 col-sm-6 col-xs-6">
+                                                    <div class="stat-right">
+                                                        <div class="stat-chart">
+                                                            <!-- do not line break "sparkline_bar" div. sparkline chart has an issue when the container div has line break -->
+                                                            <div id="sparkline_bar2" style="z-index: 1;"></div>
+                                                        </div>
+                                                        <div class="stat-number">
+                                                            <div class="title"> Yesterday's Sold </div>
+                                                            <div class="number text-center"> {{$today_sold}} </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
+                                            <div class="table-scrollable table-scrollable-borderless">
+                                                <table class="table table-hover table-light">
+                                                    <thead>
+                                                        <tr class="uppercase">
+                                                            <th colspan="2" class="text-center"> EMPLOYEE </th>
+                                                            <th class="text-center"> Yesterday's Sales </th>
+                                                            <th class="text-center"> Yesterday's Sold </th>
+                                                            
+                                                        </tr>
+                                                    </thead>
+                                                    @if(count($rep)>0)
+                                                    @foreach($rep as $re)
+                                                    <tr>
+                                                        <td class="fit">
+                                                            <img class="user-pic rounded" src="../assets/pages/media/users/avatar4.jpg"> </td>
+                                                        <td>
+                                                            <a href="{{route('profile', array('id' => $re->save_id))}}" class="primary-link">
+                                                                {{$re->save_by}}</a>
+                                                        </td>
+                                                        <td class="text-center"> ${{$re->today_sale}} </td>
+                                                        <td class="text-center"> {{$re->today_sold}} </td>
+                                                        
+                                                    </tr>
+                                                    @endforeach
+                                                    @endif
+                                                </table>
+                                            </div>
+                                            </div>
+
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="table-scrollable table-scrollable-borderless">
-                                        <table class="table table-hover table-light">
-                                            <thead>
-                                                <tr class="uppercase">
-                                                    <th colspan="2" class="text-center"> EMPLOYEE </th>
-                                                    <th class="text-center"> Today's Sales </th>
-                                                    <th class="text-center"> Today's Sold </th>
-                                                    
-                                                </tr>
-                                            </thead>
-											@if(count($rep)>0)
-											@foreach($rep as $re)
-                                            <tr>
-                                                <td class="fit">
-                                                    <img class="user-pic rounded" src="../assets/pages/media/users/avatar4.jpg"> </td>
-                                                <td>
-                                                    <a href="{{route('profile', array('id' => $re->save_id))}}" class="primary-link">
-                                                    	{{$re->save_by}}</a>
-                                                </td>
-                                                <td class="text-center"> ${{$re->today_sale}} </td>
-                                                <td class="text-center"> {{$re->today_sold}} </td>
-                                                
-                                            </tr>
-                                            @endforeach
-                                            @endif
-                                        </table>
-                                    </div>
-                                </div>
+                                        
+                               </div>
                             </div>
                         </div>
                         <div class="col-lg-6 col-xs-12 col-sm-12">
@@ -278,7 +350,6 @@
                                     </div>
                                 </div>
                             </div>
-                            
                         </div>
                         <div class="row">
                         <div class="col-md-6">
@@ -295,37 +366,6 @@
                                             <a class="btn green btn-circle btn-sm" href="javascript:;" data-toggle="dropdown" data-hover="dropdown" data-close-others="true"> Actions
                                                 <i class="fa fa-angle-down"></i>
                                             </a>
-                                            <ul class="dropdown-menu pull-right">
-                                                <li>
-                                                    <a href="javascript:;"> All Project </a>
-                                                </li>
-                                                <li class="divider"> </li>
-                                                <li>
-                                                    <a href="javascript:;"> AirAsia </a>
-                                                </li>
-                                                <li>
-                                                    <a href="javascript:;"> Cruise </a>
-                                                </li>
-                                                <li>
-                                                    <a href="javascript:;"> HSBC </a>
-                                                </li>
-                                                <li class="divider"> </li>
-                                                <li>
-                                                    <a href="javascript:;"> Pending
-                                                        <span class="badge badge-danger"> 4 </span>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="javascript:;"> Completed
-                                                        <span class="badge badge-success"> 12 </span>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="javascript:;"> Overdue
-                                                        <span class="badge badge-warning"> 9 </span>
-                                                    </a>
-                                                </li>
-                                            </ul>
                                         </div>
                                     </div>
                                 </div>

@@ -160,7 +160,9 @@
                                                         {{csrf_field()}}
                                                     <td><input type="text" name="quantity" value="{{$order->item->quantity}}" class="form-control text-center"></td>
                                                     <td class="text-center">{{$order->item->price}}</td>
-                                                    <td class="text-center"><a href="{{route('staff_delete_order', ['order_id' => $order->id])}}" data-loading-text="Checking..." class="btn red mt-ladda-btn ladda-button mt-progress-demo btn-circle" data-style="expand-left"><i class="fa fa-trash"></i> Remove</a>
+                                                    <td class="text-center">
+                                                        <a href="{{route('staff_delete_order', ['order_id' => $order->id])}}" class="btn red-mint btn-circle btn-large" data-toggle="confirmation" data-original-title="Are you sure ?" title="">
+                                                            <i class="fa fa-trash"></i> Remove</a>
                                                         <button type="submit" data-loading-text="Checking..." class="btn btn-primary mt-ladda-btn ladda-button mt-progress-demo btn-circle" data-style="expand-left" id="save">
                                                         <span class="ladda-label"><i class="fa fa-shopping-cart"></i> Order Now</span>
                                                       </button>
@@ -190,6 +192,13 @@
                 <script src="{{asset('../assets/global/plugins/datatables/datatables.min.js')}}" type="text/javascript"></script>
                  <script src="{{asset('../assets/pages/scripts/table-datatables-managed.min.js')}}" type="text/javascript"></script>
                 <script src="{{asset('../assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.js')}}" type="text/javascript"></script>
+                 <script src="{{asset('../assets/global/plugins/bootstrap-confirmation/bootstrap-confirmation.min.js')}}" type="text/javascript"></script>
+                <!-- END PAGE LEVEL PLUGINS -->
+                <!-- BEGIN THEME GLOBAL SCRIPTS -->
+                <script src="{{asset('../assets/global/scripts/app.min.js')}}" type="text/javascript"></script>
+                <!-- END THEME GLOBAL SCRIPTS -->
+                <!-- BEGIN PAGE LEVEL SCRIPTS -->
+                <script src="{{asset('../assets/pages/scripts/ui-confirmations.min.js')}}" type="text/javascript"></script>
                 <script type="text/javascript" src="{{asset('js/toastr.min.js')}}"></script>
                 <script type="text/javascript">
                     @if(Session::has('message'))

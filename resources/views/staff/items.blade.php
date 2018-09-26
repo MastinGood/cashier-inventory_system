@@ -151,13 +151,23 @@
                                                 </td>
                                                     <td class="text-center">{{$item->itemcode}}</td>
                                                     <td class="text-center">{{$item->name}}</td>
-                                                    <td class="text-center">{{$item->quantity}}</td>
-                                                    <td class="text-center">{{$item->price}}</td>
                                                     <td class="text-center">
+                                                        @if($item->quantity <= 0)
+                                                        <span class="label label-warning label-sm">Out of stock</span>
+                                                        @else
+                                                        <span class="badge badge-success">{{$item->quantity}}</span>
+                                                        @endif
+                                                    </td>
+                                                    <td class="text-center">${{$item->price}}</td>
+                                                    <td class="text-center">
+                                                        @if($item->quantity <= 0)
+                                                        <a class="btn dark btn-circle btn-small" disabled="disabled"><i class="fa fa-spinner fa-spin"></i>  waiting for stock</a>
+                                                        @else
                                                         @if($item->order)
                                                         <a class="btn red btn-circle btn-small" disabled="disabled"><i class="fa fa-check"></i> Selected</a>
                                                         @else
-                                                        <a href="{{route('staff_select_order', ['item_id' => $item->id])}}" class="btn green btn-circle btn-small" id="order"><i class="fa fa-shopping-cart"></i> Order</a>
+                                                        <a href="{{route('staff_select_order', ['item_id' => $item->id])}}" class="btn btn-primary mt-ladda-btn ladda-button mt-progress-demo btn-circle" data-loading-text="Checking..." data-style="expand-left" id="order"><span class="ladda-label"><i class="fa fa-shopping-cart"></i> Order Now</span>
+                                                        @endif
                                                         @endif
                                                     </td>
                                                 </tr>

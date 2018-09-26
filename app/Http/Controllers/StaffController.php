@@ -112,7 +112,17 @@ class StaffController extends Controller
                     ->orderBy('top_selling','DESC')
                     ->limit(5)
                     ->get();
-    
-        return view('staff.dashboard', compact('top_sell','online_users','tots','sold', 'today_sales','userz', 'recent_user', 'rep', 'salezz','today_sold'));
+        $usersz = User::limit(5)->get();
+        foreach($usersz as $user){
+            $yesterday = DB::table('reports')
+                                ->where('save_date', Carbon::yesterday()->format("m-d-Y"))
+                                ->select('save_id','save_by', DB::raw('SUM(sub_total) as yesterday_sale'), DB::raw('COUNT(save_id) as yesterday_sold'))
+                                ->groupBy('save_id','save_by')
+                                ->orderBy('yesterday_sale' ,'DESC')
+                                ->get();
+        }
+        
+
+        return view('staff.dashboard', compact('top_sell','online_users','tots','sold', 'today_sales','userz', 'recent_user', 'rep', 'salezz','today_sold','yesterday'));
     }
 }

@@ -61,4 +61,14 @@ class InventoryController extends Controller
     	return redirect()->back()->with($notification);
 
     }
+    public function remove($id){
+        $item = Inventory::find($id)->delete();
+         $stock = Item::find($id)->delete();
+         $notification = array(
+            'message' => 'Stock successfully removed!!',
+            'alert-type' => 'success'
+        );
+    return redirect()->back()->with($notification);
+    }
+    
 }

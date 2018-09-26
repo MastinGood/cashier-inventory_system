@@ -55,6 +55,10 @@ Route::group(['middleware' => 'auth'], function () {
 		'uses' => 'InventoryController@save',
 		'as' => 'inventory.save'
 	));
+	Route::get('/inventory/{id}', array(
+		'uses' => 'InventoryController@remove',
+		'as' => 'remove_stock'
+	));
 	Route::post('/inventory', array(
 		'uses' => 'InventoryController@update',
 		'as' => 'updateInventory'
@@ -75,7 +79,7 @@ Route::group(['middleware' => 'auth'], function () {
 		'uses' => 'StaffController@staff_save_report',
 		'as' => 'staff_save_report'
 	));
-	Route::get('/dashboard', array(
+	Route::get('/staff/dashboard', array(
 		'uses' => 'StaffController@dashboard',
 		'as' => 'dashboard'
 	));

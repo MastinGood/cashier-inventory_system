@@ -311,10 +311,20 @@
                                                 </td>
                                                     <td class="text-center">{{$inventory->itemcode}}</td>
                                                     <td class="text-center">{{$inventory->name}}</td>
-                                                    <td class="text-center">{{$inventory->quantity}}</td>
+                                                    <td class="text-center">
+                                                        @if($inventory->quantity <= 0)
+                                                       <span class="label label-warning label-sm">Out of stock</span>
+                                                        @else
+                                                        <span class="badge badge-success">{{$inventory->quantity}}</span>
+                                                        @endif
+                                                        
+                                                    </td>
                                                     <td class="text-center">{{$inventory->price}}</td>
                                                     <td class="text-center">{{$inventory->dateadded}}</td>
-                                                    <td class="text-center"><a class="btn green btn-circle btn-small" data-id="{{$inventory->id}}" data-itemcode="{{$inventory->itemcode}}" data-name="{{$inventory->name}}" data-quantity="{{$inventory->quantity}}" data-price="{{$inventory->price}}" data-dateadded="{{$inventory->dateadded}}" data-addedby="{{$inventory->addedby}}" id="editInventory"><i class="fa fa-edit"></i> Edit</a></td>
+                                                    <td class="text-center">
+                                                            <a href="{{route('remove_stock',['id' => $inventory->id])}}" class="btn red-mint btn-circle btn-large" data-toggle="confirmation" data-original-title="Are you sure ?" title="">
+                                                            <i class="fa fa-remove"></i> Remove</a>
+                                                            <a class="btn green btn-circle btn-small" data-id="{{$inventory->id}}" data-itemcode="{{$inventory->itemcode}}" data-name="{{$inventory->name}}" data-quantity="{{$inventory->quantity}}" data-price="{{$inventory->price}}" data-dateadded="{{$inventory->dateadded}}" data-addedby="{{$inventory->addedby}}" id="editInventory"><i class="fa fa-edit"></i> Edit</a></td>
                                                 </tr>
                                                 @endforeach
                                             @endif
@@ -339,6 +349,13 @@
                 <script src="{{asset('../assets/global/plugins/datatables/datatables.min.js')}}" type="text/javascript"></script>
                  <script src="{{asset('../assets/pages/scripts/table-datatables-managed.min.js')}}" type="text/javascript"></script>
                 <script src="{{asset('../assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.js')}}" type="text/javascript"></script>
+                 <script src="{{asset('../assets/global/plugins/bootstrap-confirmation/bootstrap-confirmation.min.js')}}" type="text/javascript"></script>
+                <!-- END PAGE LEVEL PLUGINS -->
+                <!-- BEGIN THEME GLOBAL SCRIPTS -->
+                <script src="{{asset('../assets/global/scripts/app.min.js')}}" type="text/javascript"></script>
+                <!-- END THEME GLOBAL SCRIPTS -->
+                <!-- BEGIN PAGE LEVEL SCRIPTS -->
+                <script src="{{asset('../assets/pages/scripts/ui-confirmations.min.js')}}" type="text/javascript"></script>
                 <script type="text/javascript" src="{{asset('js/toastr.min.js')}}"></script>
                 <script type="text/javascript">
                     @if(Session::has('message'))
