@@ -324,7 +324,7 @@
                                                     <td class="text-center">
                                                             <a href="{{route('remove_stock',['id' => $inventory->id])}}" class="btn red-mint btn-circle btn-large" data-toggle="confirmation" data-original-title="Are you sure ?" title="">
                                                             <i class="fa fa-remove"></i> Remove</a>
-                                                            <a class="btn green btn-circle btn-small" data-id="{{$inventory->id}}" data-itemcode="{{$inventory->itemcode}}" data-name="{{$inventory->name}}" data-quantity="{{$inventory->quantity}}" data-price="{{$inventory->price}}" data-dateadded="{{$inventory->dateadded}}" data-addedby="{{$inventory->addedby}}" id="editInventory"><i class="fa fa-edit"></i> Edit</a></td>
+                                                            <a class="btn green btn-circle btn-small" data-id="{{$inventory->id}}" data-itemcode="{{$inventory->itemcode}}" data-name="{{$inventory->name}}" data-quantity="{{$inventory->quantity}}" data-price="{{$inventory->price}}" data-dateadded="{{$inventory->dateadded}}" data-addedby="{{$inventory->addedby}}" id="editInventory">@if($inventory->quantity <= 0)<i class="fa fa-plus"></i> Add Stock @else <i class="fa fa-edit"></i> Edit @endif</a></td>
                                                 </tr>
                                                 @endforeach
                                             @endif

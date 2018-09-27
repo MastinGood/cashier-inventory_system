@@ -83,4 +83,8 @@ Route::group(['middleware' => 'auth'], function () {
 		'uses' => 'StaffController@dashboard',
 		'as' => 'dashboard'
 	));
+	Route::get('/total/cancel', array(
+		'uses' => 'StaffController@cancel',
+		'as' => 'cancel_transactions'
+	));
 });

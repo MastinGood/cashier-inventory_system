@@ -60,6 +60,6 @@ class OrderController extends Controller
 
             return redirect()->back()->with('pay_order', 'Item successfully ordered!!');
         }
-            return redirect()->back()->with('pay_order', 'Quantity must not be greater than or less than the item quantity!');
+            return redirect()->back()->with('warning', 'Quantity must not be greater than or less than the item quantity!');
     }
 }

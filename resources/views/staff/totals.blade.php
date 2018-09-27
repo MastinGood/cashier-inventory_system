@@ -1,6 +1,7 @@
 @extends('layouts.template')
 @section('content')
 @section('header-assets')
+ <link href="{{asset('../assets/global/plugins/bootstrap-sweetalert/sweetalert.css')}}" rel="stylesheet" type="text/css" />
 <link href="{{asset('../assets/pages/css/invoice-2.min.css')}}" rel="stylesheet" type="text/css" />
 @endsection
 <!-- BEGIN CONTENT -->
@@ -197,8 +198,20 @@
                         </div>
                         <div class="row">
                             <div class="col-xs-12">
-                                <a class="btn btn-lg green-haze hidden-print uppercase print-btn" onclick="javascript:window.print();">Print</a>
-                                <a class="btn btn-lg green-haze hidden-print uppercase print-btn" style="margin-right:10px; " href="{{route('staff_save_report')}}">Save Report</a>
+                                @if(count($totals)<=0)
+                                 <a class="btn btn-lg green-haze hidden-print uppercase print-btn" disabled="disabled"><i class="fa fa-print"></i> Print</a>
+                                 <a class="btn btn-lg green-haze hidden-print uppercase print-btn" style="margin-right:10px; " disabled="disabled"><i class="fa fa-save"></i> Save Report</a>
+                                @else
+                                 <a class="btn btn-circle green-haze btn-outline hidden-print print-btn sbold uppercase" onclick="javascript:window.print();"><i class="fa fa-print"></i> Print</a>
+                                 <a href="{{route('staff_save_report')}}" class="btn btn-circle green-haze btn-outline sbold uppercase mt-sweetalert pull-right" data-title="Payment Successfully" data-message="Thank you!! Come again.." data-type="success" data-allow-outside-click="true"
+                                        data-confirm-button-class="btn-success"><i class="fa fa-save"></i> Save Report</a>
+                                        <a href="{{route('cancel_transactions')}}" class="btn btn-circle green-haze btn-outline sbold mt-sweetalert" data-title="Do you want to cancel this transactions?" data-message="Duis mollis, est non commodo luctus, nisi erat porttitor ligula, mattis consectetur purus sit amet eget lacinia odio sem nec elit. Cras mattis consectetur purus sit amet fermentum."
+                                        data-type="info" data-show-confirm-button="true" data-confirm-button-class="btn-success" data-show-cancel-button="true" data-cancel-button-class="btn-default" data-close-on-confirm="false" data-close-on-cancel="true" data-confirm-button-text='Yes, I agree'
+                                        data-cancel-button-text='No, I disagree' data-popup-title-success="Thank you!! Come again!!" data-popup-message-success=" Your transactions has been cancelled. Sorry for inconvinience!!"><i class="fa fa-times"></i> Cancel Transactions</a>
+
+                                @endif
+                               
+                                
                             </div>
                         </div>
                     </div>
@@ -206,4 +219,15 @@
                 <!-- END CONTENT BODY -->
             </div>
             <!-- END CONTENT -->
+            @section('footer-assets')
+            <!-- BEGIN PAGE LEVEL PLUGINS -->
+            <script src="{{asset('../assets/global/plugins/bootstrap-sweetalert/sweetalert.min.js')}}" type="text/javascript"></script>
+            <!-- END PAGE LEVEL PLUGINS -->
+            <!-- BEGIN THEME GLOBAL SCRIPTS -->
+            <script src="{{asset('../assets/global/scripts/app.min.js')}}" type="text/javascript"></script>
+            <!-- END THEME GLOBAL SCRIPTS -->
+            <!-- BEGIN PAGE LEVEL SCRIPTS -->
+            <script src="{{asset('../assets/pages/scripts/ui-sweetalert.min.js')}}" type="text/javascript"></script>
+            <!-- END PAGE LEVEL SCRIPTS -->
+            @endsection
 @endsection

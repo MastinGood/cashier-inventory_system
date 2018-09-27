@@ -39,7 +39,7 @@
                                             <span data-counter="counterup" data-value="{{$tots}}">0</span>
                                             <small class="font-green-sharp">$</small>
                                         </h3>
-                                        <small>TOTAL SALES</small>
+                                        <small>LIFETIME SALES</small>
                                     </div>
                                     <div class="icon">
                                         <i class="icon-pie-chart"></i>
@@ -162,120 +162,178 @@
                                             <li>
                                                 <a href="#past" data-toggle="tab"> Yesterday </a>
                                             </li>
+                                             <li>
+                                                <a href="#lastweek" data-toggle="tab"> Last Week </a>
+                                            </li>
  
                                         </ul>
                                         
                                         <div class="portlet-body">
                                             <div class="tab-content">
                                             <div class="tab-pane active" id="today">
-                                            <div class="row number-stats margin-bottom-30">
-                                                <div class="col-md-6 col-sm-6 col-xs-6">
-                                                    <div class="stat-left">
-                                                        <div class="stat-chart">
-                                                            <!-- do not line break "sparkline_bar" div. sparkline chart has an issue when the container div has line break -->
-                                                            <div id="sparkline_bar"></div>
+                                                <div class="row number-stats margin-bottom-30">
+                                                    <div class="col-md-6 col-sm-6 col-xs-6">
+                                                        <div class="stat-left">
+                                                            <div class="stat-chart">
+                                                                <!-- do not line break "sparkline_bar" div. sparkline chart has an issue when the container div has line break -->
+                                                                <div id="sparkline_bar"></div>
+                                                            </div>
+                                                            <div class="stat-number">
+                                                                <div class="title"> Today's Sales </div>
+                                                                <div class="number text-center"> ${{$salezz}} </div>
+                                                            </div>
                                                         </div>
-                                                        <div class="stat-number">
-                                                            <div class="title"> Today's Sales </div>
-                                                            <div class="number text-center"> ${{$salezz}} </div>
+                                                    </div>
+                                                    <div class="col-md-6 col-sm-6 col-xs-6">
+                                                        <div class="stat-right">
+                                                            <div class="stat-chart">
+                                                                <!-- do not line break "sparkline_bar" div. sparkline chart has an issue when the container div has line break -->
+                                                                <div id="sparkline_bar2"></div>
+                                                            </div>
+                                                            <div class="stat-number">
+                                                                <div class="title"> Today's Sold </div>
+                                                                <div class="number text-center"> {{$today_sold}} </div>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-6 col-sm-6 col-xs-6">
-                                                    <div class="stat-right">
-                                                        <div class="stat-chart">
-                                                            <!-- do not line break "sparkline_bar" div. sparkline chart has an issue when the container div has line break -->
-                                                            <div id="sparkline_bar2"></div>
-                                                        </div>
-                                                        <div class="stat-number">
-                                                            <div class="title"> Today's Sold </div>
-                                                            <div class="number text-center"> {{$today_sold}} </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="table-scrollable table-scrollable-borderless">
-                                                <table class="table table-hover table-light">
-                                                    <thead>
-                                                        <tr class="uppercase">
-                                                            <th colspan="2" class="text-center"> EMPLOYEE </th>
-                                                            <th class="text-center"> Today's Sales </th>
-                                                            <th class="text-center"> Today's Sold </th>
+                                                <div class="table-scrollable table-scrollable-borderless">
+                                                    <table class="table table-hover table-light">
+                                                        <thead>
+                                                            <tr class="uppercase">
+                                                                <th colspan="2" class="text-center"> EMPLOYEE </th>
+                                                                <th class="text-center"> Today's Sales </th>
+                                                                <th class="text-center"> Today's Sold </th>
+                                                                
+                                                            </tr>
+                                                        </thead>
+            											@if(count($rep)>0)
+                                                        @foreach($rep as $re)
+                                                        <tr>
+                                                            <td class="fit">
+                                                                <img class="user-pic rounded" src="../assets/pages/media/users/avatar4.jpg"> </td>
+                                                            <td>
+                                                                <a href="{{route('profile', array('id' => $re->save_id))}}" class="primary-link">
+                                                                    {{$re->save_by}}</a>
+                                                            </td>
+                                                            <td class="text-center"> ${{$re->today_sale}} </td>
+                                                            <td class="text-center"> {{$re->today_sold}} </td>
                                                             
                                                         </tr>
-                                                    </thead>
-        											@if(count($yesterday)>0)
-        											@foreach($yesterday as $yes)
-                                                    <tr>
-                                                        <td class="fit">
-                                                            <img class="user-pic rounded" src="../assets/pages/media/users/avatar4.jpg"> </td>
-                                                        <td>
-                                                            <a href="{{route('profile', array('id' => $yes->save_id))}}" class="primary-link">
-                                                            	{{$yes->save_by}}</a>
-                                                        </td>
-                                                        <td class="text-center"> ${{$yes->yesterday_sale}} </td>
-                                                        <td class="text-center"> {{$yes->yesterday_sold}} </td>
-                                                        
-                                                    </tr>
-                                                    @endforeach
-                                                    @endif
-                                                </table>
-                                            </div>
+                                                        @endforeach
+                                                        @endif
+                                                    </table>
+                                                </div>
                                             </div>
                                             <div class="tab-pane" id="past">
-                                            <div class="row number-stats margin-bottom-30">
-                                                <div class="col-md-6 col-sm-6 col-xs-6">
-                                                    <div class="stat-left">
-                                                        <div class="stat-chart">
-                                                            <!-- do not line break "sparkline_bar" div. sparkline chart has an issue when the container div has line break -->
-                                                            <div id="sparkline_bar"></div>
+                                                <div class="row number-stats margin-bottom-30">
+                                                    <div class="col-md-6 col-sm-6 col-xs-6">
+                                                        <div class="stat-left">
+                                                            <div class="stat-chart">
+                                                                <!-- do not line break "sparkline_bar" div. sparkline chart has an issue when the container div has line break -->
+                                                                <div id="sparkline_bar"></div>
+                                                            </div>
+                                                            <div class="stat-number">
+                                                                <div class="title"> Yesterday's Sales </div>
+                                                                <div class="number text-center"> ${{$salezzz}} </div>
+                                                            </div>
                                                         </div>
-                                                        <div class="stat-number">
-                                                            <div class="title"> Yesterday's Sales </div>
-                                                            <div class="number text-center"> ${{$salezz}} </div>
+                                                    </div>
+                                                    <div class="col-md-6 col-sm-6 col-xs-6">
+                                                        <div class="stat-right">
+                                                            <div class="stat-chart">
+                                                                <!-- do not line break "sparkline_bar" div. sparkline chart has an issue when the container div has line break -->
+                                                                <div id="sparkline_bar2" style="z-index: 1;"></div>
+                                                            </div>
+                                                            <div class="stat-number">
+                                                                <div class="title"> Yesterday's Sold </div>
+                                                                <div class="number text-center"> {{$yesterday_sold}} </div>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-6 col-sm-6 col-xs-6">
-                                                    <div class="stat-right">
-                                                        <div class="stat-chart">
-                                                            <!-- do not line break "sparkline_bar" div. sparkline chart has an issue when the container div has line break -->
-                                                            <div id="sparkline_bar2" style="z-index: 1;"></div>
-                                                        </div>
-                                                        <div class="stat-number">
-                                                            <div class="title"> Yesterday's Sold </div>
-                                                            <div class="number text-center"> {{$today_sold}} </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="table-scrollable table-scrollable-borderless">
-                                                <table class="table table-hover table-light">
-                                                    <thead>
-                                                        <tr class="uppercase">
-                                                            <th colspan="2" class="text-center"> EMPLOYEE </th>
-                                                            <th class="text-center"> Yesterday's Sales </th>
-                                                            <th class="text-center"> Yesterday's Sold </th>
+                                                <div class="table-scrollable table-scrollable-borderless">
+                                                    <table class="table table-hover table-light">
+                                                        <thead>
+                                                            <tr class="uppercase">
+                                                                <th colspan="2" class="text-center"> EMPLOYEE </th>
+                                                                <th class="text-center"> Yesterday's Sales </th>
+                                                                <th class="text-center"> Yesterday's Sold </th>
+                                                                
+                                                            </tr>
+                                                        </thead>
+                                                        @if(count($yesterday)>0)
+                                                        @foreach($yesterday as $yes)
+                                                        <tr>
+                                                            <td class="fit">
+                                                                <img class="user-pic rounded" src="../assets/pages/media/users/avatar4.jpg"> </td>
+                                                            <td>
+                                                                <a href="{{route('profile', array('id' => $yes->save_id))}}" class="primary-link">
+                                                                    {{$yes->save_by}}</a>
+                                                            </td>
+                                                            <td class="text-center"> ${{$yes->yesterday_sale}} </td>
+                                                            <td class="text-center"> {{$yes->yesterday_sold}} </td>
                                                             
                                                         </tr>
-                                                    </thead>
-                                                    @if(count($rep)>0)
-                                                    @foreach($rep as $re)
-                                                    <tr>
-                                                        <td class="fit">
-                                                            <img class="user-pic rounded" src="../assets/pages/media/users/avatar4.jpg"> </td>
-                                                        <td>
-                                                            <a href="{{route('profile', array('id' => $re->save_id))}}" class="primary-link">
-                                                                {{$re->save_by}}</a>
-                                                        </td>
-                                                        <td class="text-center"> ${{$re->today_sale}} </td>
-                                                        <td class="text-center"> {{$re->today_sold}} </td>
-                                                        
-                                                    </tr>
-                                                    @endforeach
-                                                    @endif
-                                                </table>
+                                                        @endforeach
+                                                        @endif
+                                                    </table>
+                                                </div>
                                             </div>
+                                            <div class="tab-pane" id="lastweek">
+                                                <div class="row number-stats margin-bottom-30">
+                                                    <div class="col-md-6 col-sm-6 col-xs-6">
+                                                        <div class="stat-left">
+                                                            <div class="stat-chart">
+                                                                <!-- do not line break "sparkline_bar" div. sparkline chart has an issue when the container div has line break -->
+                                                                <div id="sparkline_bar"></div>
+                                                            </div>
+                                                            <div class="stat-number">
+                                                                <div class="title"> Last Week Sales </div>
+                                                                <div class="number text-center"> ${{$lastweeks}} </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6 col-sm-6 col-xs-6">
+                                                        <div class="stat-right">
+                                                            <div class="stat-chart">
+                                                                <!-- do not line break "sparkline_bar" div. sparkline chart has an issue when the container div has line break -->
+                                                                <div id="sparkline_bar2" style="z-index: 1;"></div>
+                                                            </div>
+                                                            <div class="stat-number">
+                                                                <div class="title"> Last Week Sold </div>
+                                                                <div class="number text-center"> {{$lastweek_sold}} </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="table-scrollable table-scrollable-borderless">
+                                                    <table class="table table-hover table-light">
+                                                        <thead>
+                                                            <tr class="uppercase">
+                                                                <th colspan="2" class="text-center"> EMPLOYEE </th>
+                                                                <th class="text-center"> Last Week Sales </th>
+                                                                <th class="text-center"> Last Week Sold </th>
+                                                                
+                                                            </tr>
+                                                        </thead>
+                                                        @if(count($lastweek)>0)
+                                                        @foreach($lastweek as $last)
+                                                        <tr>
+                                                            <td class="fit">
+                                                                <img class="user-pic rounded" src="../assets/pages/media/users/avatar4.jpg"> </td>
+                                                            <td>
+                                                                <a href="{{route('profile', array('id' => $last->save_id))}}" class="primary-link">
+                                                                    {{$last->save_by}}</a>
+                                                            </td>
+                                                            <td class="text-center"> ${{$last->lastweek_sale}} </td>
+                                                            <td class="text-center"> {{$last->lastweek_sold}} </td>
+                                                            
+                                                        </tr>
+                                                        @endforeach
+                                                        @endif
+                                                    </table>
+                                                </div>
                                             </div>
 
                                             </div>
@@ -453,6 +511,9 @@
                                                            @endif
                                                         </tbody>
                                                     </table>
+                                                    <div class="pull-right">
+                                                        {{$online_users->links()}}
+                                                        </div>
                                                 </div>
                                             </div>
                                             <div class="tab-pane" id="overview_3">

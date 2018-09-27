@@ -125,6 +125,10 @@
                                       <div class="alert alert-success">
                                         {{ session('pay_order') }}
                                       </div>
+                                      @elseif(session('warning'))
+                                      <div class="alert alert-danger">
+                                        {{ session('warning') }}
+                                      </div>
                                     @endif
                                     <div class="table-toolbar">
                                     </div>
