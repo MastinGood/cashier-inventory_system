@@ -11,10 +11,12 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/login', function () {
+    return view('auth.login');
 });
-
+Route::get('/register', function () {
+    return view('auth.register');
+});
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
@@ -39,11 +41,11 @@ Route::group(['middleware' => 'auth'], function () {
 		'uses' => 'StaffController@report_index',
 		'as' => 'staff.reports'
 	));
-	Route::get('/staff/profile/{id}', array(
+	Route::get('/profile/{id}', array(
 		'uses' => 'ProfileController@profile',
 		'as' => 'profile'
 	));
-	Route::post('/staff/profile/{id}', array(
+	Route::post('/profile/{id}', array(
 		'uses' => 'ProfileController@update_profile',
 		'as' => 'update_profile'
 	));

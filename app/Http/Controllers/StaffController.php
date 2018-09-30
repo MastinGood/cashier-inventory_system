@@ -81,7 +81,7 @@ class StaffController extends Controller
     }
     public function dashboard(){
         $online_users = User::paginate(5);
-        $recent_user = User::orderBy('created_at', 'DESC')->get();
+        $recent_user = User::orderBy('created_at', 'DESC')->limit(3)->get();
         $sales = Report::all();
         $userz = User::all()->count();
         $sold = Report::all()->count();
@@ -139,9 +139,21 @@ class StaffController extends Controller
          foreach($lastweek_salezz as $last){
             $lastweeks += $last->sub_total;
         }
-        
+
+         $lastmonth = DB::table('reports')
+                                ->whereBetween('save_date', array(Carbon::now()->subMonth(1)->format("m-d-Y"),Carbon::now()->format("m-d-Y")))
+                                ->select('save_id','save_by', DB::raw('SUM(sub_total) as lastmonth_sale'), DB::raw('COUNT(save_id) as lastmonth_sold'))
+                                ->groupBy('save_id','save_by')
+                                ->orderBy('lastmonth_sale' ,'DESC')
+                                ->get();
+        $lastmonth_sold = Report::whereBetween('save_date', array(Carbon::now()->subMonth(1)->format("m-d-Y"),Carbon::now()->format("m-d-Y")))->count();
+        $lastmonth_salezz = Report::whereBetween('save_date', array(Carbon::now()->subMonth(1)->format("m-d-Y"),Carbon::now()->format("m-d-Y")))->get();
+        $lastmonths = 0;
+         foreach($lastmonth_salezz as $lastm){
+            $lastmonths += $lastm->sub_total;
+        }
       
-        return view('staff.dashboard', compact('top_sell','online_users','tots','sold', 'today_sales','userz', 'recent_user', 'rep', 'salezz','today_sold','yesterday','salezzz','yesterday_sold','lastweek_sold','lastweek_salezz','lastweeks','lastweek'));
+        return view('staff.dashboard', compact('top_sell','online_users','tots','sold', 'today_sales','userz', 'recent_user', 'rep', 'salezz','today_sold','yesterday','salezzz','yesterday_sold','lastweek_sold','lastweek_salezz','lastweeks','lastweek','lastmonth','lastmonth_sold','lastmonth_salezz','lastmonths'));
     }
     public function cancel(){
         $totals = Total::all();

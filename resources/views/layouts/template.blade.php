@@ -32,6 +32,7 @@
         <link href="{{asset('../assets/layouts/layout2/css/layout.min.css')}}" rel="stylesheet" type="text/css" />
         <link href="{{asset('../assets/layouts/layout2/css/themes/blue.min.css')}}" rel="stylesheet" type="text/css" id="style_color" />
         <link href="{{asset('../assets/layouts/layout2/css/custom.min.css')}}" rel="stylesheet" type="text/css" />
+        <link rel="stylesheet" type="text/css" href="{{asset('/css/custom.css')}}">
         @yield('header-assets')
         <link rel="shortcut icon" href="favicon.ico" /> </head>
     <!-- END HEAD -->
@@ -86,12 +87,6 @@
                                         <a href="{{route('profile', array('id' => Auth::user()->id))}}">
                                             <i class="icon-user"></i> My Account </a>
                                     </li>
-                                    <li>
-                                        <a href="app_todo_2.html">
-                                            <i class="icon-rocket"></i> Past Transactions
-                                            <span class="badge badge-success"> 7 </span>
-                                        </a>
-                                    </li>
                                     <li class="divider"> </li>
                                     <li>
                                         <a class="dropdown-item" href="{{ route('logout') }}"
@@ -136,7 +131,7 @@
                     <!-- DOC: Set data-auto-speed="200" to adjust the sub menu slide up/down speed -->
                     <ul class="page-sidebar-menu  page-header-fixed page-sidebar-menu-hover-submenu " data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
                         <li class="nav-item start active open">
-                            <a href="{{route('dashboard')}}" class="nav-link nav-toggle">
+                            <a href="{{route('dashboard')}}" class="active nav-link nav-toggle">
                                 <i class="icon-diamond"></i>
                                 <span class="title">Dashboard</span>
                                 <span class="selected"></span>
@@ -144,37 +139,41 @@
                             </a>
                         </li>
                         <li class="nav-item start active open">
-                            <a href="{{route('staff.inventory')}}" class="nav-link nav-toggle">
+                            <a href="{{route('staff.inventory')}}" class="active nav-link nav-toggle">
                                 <i class="icon-home"></i>
                                 <span class="title">Inventory</span>
                                 <span class="selected"></span>
                                 <span class="arrow open"></span>
                             </a>
                         </li>
-                        <li class="nav-item  ">
-                            <a href="{{route('staff.items')}}" class="nav-link nav-toggle">
+                        <li class="nav-item start active open">
+                            <a href="{{route('staff.items')}}" class="active nav-link nav-toggle">
                                 <i class="icon-handbag"></i>
+                                <span class="selected"></span>
                                 <span class="title">Items</span>
                                 <span class="arrow"></span>
                             </a>
                         </li>
-                        <li class="nav-item  ">
-                            <a href="{{route('staff.orders')}}" class="nav-link nav-toggle">
+                        <li class="nav-item start active open">
+                            <a href="{{route('staff.orders')}}" class="active nav-link nav-toggle">
                                 <i class="icon-basket-loaded"></i>
+                                <span class="selected"></span>
                                 <span class="title">Orders</span>
                                 <span class="arrow"></span>
                             </a>
                         </li>
-                        <li class="nav-item  ">
-                            <a href="{{route('staff.totals')}}" class="nav-link nav-toggle">
+                        <li class="nav-item start active open">
+                            <a href="{{route('staff.totals')}}" class="active nav-link nav-toggle">
                                 <i class="icon-calculator"></i>
+                                <span class="selected"></span>
                                 <span class="title">Totals</span>
                                 <span class="arrow"></span>
                             </a>
                         </li>
-                        <li class="nav-item  ">
-                            <a href="{{route('staff.reports')}}" class="nav-link nav-toggle">
+                        <li class="nav-item start active open">
+                        <a href="{{route('staff.reports')}}" class="active nav-link nav-toggle">
                                 <i class="icon-docs"></i>
+                                <span class="selected"></span>
                                 <span class="title">Reports</span>
                                 <span class="arrow"></span>
                             </a>
@@ -190,13 +189,12 @@
         <!-- END CONTAINER -->
         <!-- BEGIN FOOTER -->
         <div class="page-footer">
-            <div class="page-footer-inner"> 2016 &copy; Metronic Theme By
-                <a target="_blank" href="http://keenthemes.com">Keenthemes</a> &nbsp;|&nbsp;
-                <a href="http://themeforest.net/item/metronic-responsive-admin-dashboard-template/4021469?ref=keenthemes" title="Purchase Metronic just for 27$ and get lifetime updates for free" target="_blank">Purchase Metronic!</a>
+            <div class="page-footer-inner text-center"> 2018 &copy; All rights reserved | Jhon Kenrick Villaces
                 <div class="scroll-to-top">
                     <i class="icon-arrow-up"></i>
                 </div>
             </div>
+        </div>
             <!-- END FOOTER -->
             
             <!-- BEGIN CORE PLUGINS -->
@@ -213,12 +211,7 @@
             <script src="{{asset('../assets/global/plugins/morris/raphael-min.js')}}" type="text/javascript"></script>
             <script src="{{asset('../assets/global/plugins/counterup/jquery.waypoints.min.js')}}" type="text/javascript"></script>
             <script src="{{asset('../assets/global/plugins/counterup/jquery.counterup.min.js')}}" type="text/javascript"></script>
-            <script src="{{asset('../assets/global/plugins/horizontal-timeline/horizontal-timeline.js')}}" type="text/javascript"></script>
-            <script src="{{asset('../assets/global/plugins/flot/jquery.flot.min.js')}}" type="text/javascript"></script>
-            <script src="{{asset('../assets/global/plugins/flot/jquery.flot.resize.min.js')}}" type="text/javascript"></script>
-            <script src="{{asset('../assets/global/plugins/flot/jquery.flot.categories.min.js')}}" type="text/javascript"></script>
-            <script src="{{asset('../assets/global/plugins/jquery-easypiechart/jquery.easypiechart.min.js')}}" type="text/javascript"></script>
-            <script src="{{asset('../assets/global/plugins/jquery.sparkline.min.js')}}" type="text/javascript"></script>
+            
             
             <!-- END PAGE LEVEL PLUGINS -->
             <!-- BEGIN THEME GLOBAL SCRIPTS -->

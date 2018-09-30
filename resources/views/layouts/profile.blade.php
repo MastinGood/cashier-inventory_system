@@ -1,8 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-    <!--<![endif]-->
-    <!-- BEGIN HEAD -->
-
     <head>
         <meta charset="utf-8" />
         <title>Cashier & Inventory System</title>
@@ -23,7 +20,6 @@
         <!-- BEGIN THEME GLOBAL STYLES -->
         <link href="{{asset('../assets/global/css/components.min.css')}}" rel="stylesheet" id="style_components" type="text/css" />
         <link href="{{asset('../assets/global/css/plugins.min.css')}}" rel="stylesheet" type="text/css" />
-
         <!-- END THEME GLOBAL STYLES -->
         <!-- BEGIN PAGE LEVEL STYLES -->
         <link href="{{asset('../assets/pages/css/profile-2.min.css')}}" rel="stylesheet" type="text/css" />
@@ -32,6 +28,7 @@
         <link href="{{asset('../assets/layouts/layout2/css/layout.min.css')}}" rel="stylesheet" type="text/css" />
         <link href="{{asset('../assets/layouts/layout2/css/themes/blue.min.css')}}" rel="stylesheet" type="text/css" id="style_color" />
         <link href="{{asset('../assets/layouts/layout2/css/custom.min.css')}}" rel="stylesheet" type="text/css" />
+        <link rel="stylesheet" type="text/css" href="{{asset('/css/custom.css')}}">
         @yield('header-assets')
         <!-- END THEME LAYOUT STYLES -->
         <link rel="shortcut icon" href="favicon.ico" /> </head>
@@ -87,12 +84,6 @@
                                         <a href="{{route('profile', array('id' => Auth::user()->id))}}">
                                             <i class="icon-user"></i> My Account </a>
                                     </li>
-                                    <li>
-                                        <a href="app_todo_2.html">
-                                            <i class="icon-rocket"></i> Past Transactions
-                                            <span class="badge badge-success"> 7 </span>
-                                        </a>
-                                    </li>
                                     <li class="divider"> </li>
                                     <li>
                                         <a class="dropdown-item" href="{{ route('logout') }}"
@@ -136,8 +127,8 @@
                     <!-- DOC: Set data-keep-expand="true" to keep the submenues expanded -->
                     <!-- DOC: Set data-auto-speed="200" to adjust the sub menu slide up/down speed -->
                     <ul class="page-sidebar-menu  page-header-fixed page-sidebar-menu-hover-submenu " data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
-                         <li class="nav-item start active open">
-                            <a href="{{route('dashboard')}}" class="nav-link nav-toggle">
+                        <li class="nav-item start active open">
+                            <a href="{{route('dashboard')}}" class="active nav-link nav-toggle">
                                 <i class="icon-diamond"></i>
                                 <span class="title">Dashboard</span>
                                 <span class="selected"></span>
@@ -145,37 +136,41 @@
                             </a>
                         </li>
                         <li class="nav-item start active open">
-                            <a href="{{route('staff.inventory')}}" class="nav-link nav-toggle">
+                            <a href="{{route('staff.inventory')}}" class="active nav-link nav-toggle">
                                 <i class="icon-home"></i>
                                 <span class="title">Inventory</span>
                                 <span class="selected"></span>
                                 <span class="arrow open"></span>
                             </a>
                         </li>
-                        <li class="nav-item  ">
-                            <a href="{{route('staff.items')}}" class="nav-link nav-toggle">
+                        <li class="nav-item start active open">
+                            <a href="{{route('staff.items')}}" class="active nav-link nav-toggle">
                                 <i class="icon-handbag"></i>
+                                <span class="selected"></span>
                                 <span class="title">Items</span>
                                 <span class="arrow"></span>
                             </a>
                         </li>
-                        <li class="nav-item  ">
-                            <a href="{{route('staff.orders')}}" class="nav-link nav-toggle">
+                        <li class="nav-item start active open">
+                            <a href="{{route('staff.orders')}}" class="active nav-link nav-toggle">
                                 <i class="icon-basket-loaded"></i>
+                                <span class="selected"></span>
                                 <span class="title">Orders</span>
                                 <span class="arrow"></span>
                             </a>
                         </li>
-                        <li class="nav-item  ">
-                            <a href="{{route('staff.totals')}}" class="nav-link nav-toggle">
+                        <li class="nav-item start active open">
+                            <a href="{{route('staff.totals')}}" class="active nav-link nav-toggle">
                                 <i class="icon-calculator"></i>
+                                <span class="selected"></span>
                                 <span class="title">Totals</span>
                                 <span class="arrow"></span>
                             </a>
                         </li>
-                        <li class="nav-item  ">
-                            <a href="{{route('staff.reports')}}" class="nav-link nav-toggle">
+                        <li class="nav-item start active open">
+                        <a href="{{route('staff.reports')}}" class="active nav-link nav-toggle">
                                 <i class="icon-docs"></i>
+                                <span class="selected"></span>
                                 <span class="title">Reports</span>
                                 <span class="arrow"></span>
                             </a>
@@ -191,91 +186,6 @@
                 <!-- BEGIN CONTENT BODY -->
                 <div class="page-content">
                     <!-- BEGIN PAGE HEADER-->
-                    <!-- BEGIN THEME PANEL -->
-                    <div class="theme-panel">
-                        <div class="toggler tooltips" data-container="body" data-placement="left" data-html="true" data-original-title="Click to open advance theme customizer panel">
-                            <i class="icon-settings"></i>
-                        </div>
-                        <div class="toggler-close">
-                            <i class="icon-close"></i>
-                        </div>
-                        <div class="theme-options">
-                            <div class="theme-option theme-colors clearfix">
-                                <span> THEME COLOR </span>
-                                <ul>
-                                    <li class="color-default current tooltips" data-style="default" data-container="body" data-original-title="Default"> </li>
-                                    <li class="color-grey tooltips" data-style="grey" data-container="body" data-original-title="Grey"> </li>
-                                    <li class="color-blue tooltips" data-style="blue" data-container="body" data-original-title="Blue"> </li>
-                                    <li class="color-dark tooltips" data-style="dark" data-container="body" data-original-title="Dark"> </li>
-                                    <li class="color-light tooltips" data-style="light" data-container="body" data-original-title="Light"> </li>
-                                </ul>
-                            </div>
-                            <div class="theme-option">
-                                <span> Theme Style </span>
-                                <select class="layout-style-option form-control input-small">
-                                    <option value="square" selected="selected">Square corners</option>
-                                    <option value="rounded">Rounded corners</option>
-                                </select>
-                            </div>
-                            <div class="theme-option">
-                                <span> Layout </span>
-                                <select class="layout-option form-control input-small">
-                                    <option value="fluid" selected="selected">Fluid</option>
-                                    <option value="boxed">Boxed</option>
-                                </select>
-                            </div>
-                            <div class="theme-option">
-                                <span> Header </span>
-                                <select class="page-header-option form-control input-small">
-                                    <option value="fixed" selected="selected">Fixed</option>
-                                    <option value="default">Default</option>
-                                </select>
-                            </div>
-                            <div class="theme-option">
-                                <span> Top Dropdown</span>
-                                <select class="page-header-top-dropdown-style-option form-control input-small">
-                                    <option value="light" selected="selected">Light</option>
-                                    <option value="dark">Dark</option>
-                                </select>
-                            </div>
-                            <div class="theme-option">
-                                <span> Sidebar Mode</span>
-                                <select class="sidebar-option form-control input-small">
-                                    <option value="fixed">Fixed</option>
-                                    <option value="default" selected="selected">Default</option>
-                                </select>
-                            </div>
-                            <div class="theme-option">
-                                <span> Sidebar Style</span>
-                                <select class="sidebar-style-option form-control input-small">
-                                    <option value="default" selected="selected">Default</option>
-                                    <option value="compact">Compact</option>
-                                </select>
-                            </div>
-                            <div class="theme-option">
-                                <span> Sidebar Menu </span>
-                                <select class="sidebar-menu-option form-control input-small">
-                                    <option value="accordion" selected="selected">Accordion</option>
-                                    <option value="hover">Hover</option>
-                                </select>
-                            </div>
-                            <div class="theme-option">
-                                <span> Sidebar Position </span>
-                                <select class="sidebar-pos-option form-control input-small">
-                                    <option value="left" selected="selected">Left</option>
-                                    <option value="right">Right</option>
-                                </select>
-                            </div>
-                            <div class="theme-option">
-                                <span> Footer </span>
-                                <select class="page-footer-option form-control input-small">
-                                    <option value="fixed">Fixed</option>
-                                    <option value="default" selected="selected">Default</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- END THEME PANEL -->
                     <div class="page-bar">
                         <ul class="page-breadcrumb">
                             <li>
@@ -297,20 +207,15 @@
         </div>
         <!-- END CONTAINER -->
         <!-- BEGIN FOOTER -->
-        <div class="page-footer">
-            <div class="page-footer-inner"> 2016 &copy; Metronic Theme By
-                <a target="_blank" href="http://keenthemes.com">Keenthemes</a> &nbsp;|&nbsp;
-                <a href="http://themeforest.net/item/metronic-responsive-admin-dashboard-template/4021469?ref=keenthemes" title="Purchase Metronic just for 27$ and get lifetime updates for free" target="_blank">Purchase Metronic!</a>
+       <div class="page-footer">
+            <div class="page-footer-inner text-center">2018 &copy; All rights reserved | Jhon Kenrick Villaces
                 <div class="scroll-to-top">
                     <i class="icon-arrow-up"></i>
                 </div>
             </div>
+        </div>
             <!-- END FOOTER -->
-            <!--[if lt IE 9]>
-<script src="../assets/global/plugins/respond.min.js"></script>
-<script src="../assets/global/plugins/excanvas.min.js"></script> 
-<script src="../assets/global/plugins/ie8.fix.min.js"></script> 
-<![endif]-->
+            
             <!-- BEGIN CORE PLUGINS -->
 
             <script src="{{asset('../assets/global/plugins/jquery.min.js')}}" type="text/javascript"></script>
@@ -322,7 +227,6 @@
             <!-- END CORE PLUGINS -->
             <!-- BEGIN PAGE LEVEL PLUGINS -->
             <script src="{{asset('../assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput.js')}}" type="text/javascript"></script>
-            <script src="{{asset('../assets/global/plugins/gmaps/gmaps.min.js')}}" type="text/javascript"></script>
             <!-- END PAGE LEVEL PLUGINS -->
             <!-- BEGIN THEME GLOBAL SCRIPTS -->
             <script src="{{asset('../assets/global/scripts/app.min.js')}}" type="text/javascript"></script>

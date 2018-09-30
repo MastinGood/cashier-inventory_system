@@ -1,0 +1,42 @@
+.pagination > li > a, .pagination > li > span{
+	color: #f04848;
+	border-radius: 15px!important;
+	border:2px solid #f04848!important;
+	margin: 0px 2px;
+}
+.pagination > .active > a, .pagination > .active > a:focus, .pagination > .active > a:hover, .pagination > .active > span, .pagination > .active > span:focus, .pagination > .active > span:hover{
+	background-color: #f04848!important;
+}
+.pagination > li > a:focus, .pagination > li > a:hover, .pagination > li > span:focus, .pagination > li > span:hover{
+	background-color: #f04848!important;
+	color: #fff;
+}
+.input-small {
+    width: 177px !important;
+    border-radius: 15px!important;
+    border:1px solid #f04848;
+}
+table.dataTable thead .sorting::after, table.dataTable thead .sorting_asc::after, table.dataTable thead .sorting_desc::after, table.dataTable thead .sorting_asc_disabled::after, table.dataTable thead .sorting_desc_disabled::after{
+	color: #f04848;
+}
+.page-header.navbar .page-logo {
+    background: #EF3F3F;
+}
+.page-sidebar .page-sidebar-menu > li.active.open > a > i, .page-sidebar .page-sidebar-menu > li.active > a > i, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li.active.open > a > i, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li.active > a > i{
+	color: #f04848;
+}
+.page-sidebar .page-sidebar-menu > li.active.open > a:hover, .page-sidebar .page-sidebar-menu > li.active > a:hover, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li.active.open > a:hover, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li.active > a:hover{
+	background: #383838;
+}
+.page-sidebar .page-sidebar-menu > li.active.open > a, .page-sidebar .page-sidebar-menu > li.active > a, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li.active.open > a, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li.active > a{
+	background: #333438!important;
+}
+.page-content-wrapper{
+background: #333438!important;	
+}
+.page-sidebar, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover{
+	background: #333438!important;	
+}
+.page-footer, .page-footer-inner{
+	background: #333438!important;	
+}

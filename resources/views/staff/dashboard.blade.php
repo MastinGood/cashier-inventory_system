@@ -140,7 +140,7 @@
                     </div>           
                     <div class="row">
                         <div class="col-lg-6 col-xs-12 col-sm-12">
-                            <div class="portlet light ">
+                            <div class="portlet light" style="height: 490px!important;">
                                 <div class="portlet-title">
                                     <div class="caption caption-md">
                                         <i class="icon-bar-chart font-dark hide"></i>
@@ -164,6 +164,9 @@
                                             </li>
                                              <li>
                                                 <a href="#lastweek" data-toggle="tab"> Last Week </a>
+                                            </li>
+                                            <li>
+                                                <a href="#lastmonth" data-toggle="tab"> Last Month </a>
                                             </li>
  
                                         </ul>
@@ -336,6 +339,62 @@
                                                 </div>
                                             </div>
 
+                                            <div class="tab-pane" id="lastmonth">
+                                                <div class="row number-stats margin-bottom-30">
+                                                    <div class="col-md-6 col-sm-6 col-xs-6">
+                                                        <div class="stat-left">
+                                                            <div class="stat-chart">
+                                                                <!-- do not line break "sparkline_bar" div. sparkline chart has an issue when the container div has line break -->
+                                                                <div id="sparkline_bar"></div>
+                                                            </div>
+                                                            <div class="stat-number">
+                                                                <div class="title"> Last Month Sales </div>
+                                                                <div class="number text-center"> ${{$lastmonths}} </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6 col-sm-6 col-xs-6">
+                                                        <div class="stat-right">
+                                                            <div class="stat-chart">
+                                                                <!-- do not line break "sparkline_bar" div. sparkline chart has an issue when the container div has line break -->
+                                                                <div id="sparkline_bar2" style="z-index: 1;"></div>
+                                                            </div>
+                                                            <div class="stat-number">
+                                                                <div class="title"> Last Month Sold </div>
+                                                                <div class="number text-center"> {{$lastmonth_sold}} </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="table-scrollable table-scrollable-borderless">
+                                                    <table class="table table-hover table-light">
+                                                        <thead>
+                                                            <tr class="uppercase">
+                                                                <th colspan="2" class="text-center"> EMPLOYEE </th>
+                                                                <th class="text-center"> Last Month Sales </th>
+                                                                <th class="text-center"> Last Month Sold </th>
+                                                                
+                                                            </tr>
+                                                        </thead>
+                                                        @if(count($lastmonth)>0)
+                                                        @foreach($lastmonth as $lastm)
+                                                        <tr>
+                                                            <td class="fit">
+                                                                <img class="user-pic rounded" src="../assets/pages/media/users/avatar4.jpg"> </td>
+                                                            <td>
+                                                                <a href="{{route('profile', array('id' => $lastm->save_id))}}" class="primary-link">
+                                                                    {{$lastm->save_by}}</a>
+                                                            </td>
+                                                            <td class="text-center"> ${{$lastm->lastmonth_sale}} </td>
+                                                            <td class="text-center"> {{$lastm->lastmonth_sold}} </td>
+                                                            
+                                                        </tr>
+                                                        @endforeach
+                                                        @endif
+                                                    </table>
+                                                </div>
+                                            </div>
+
                                             </div>
                                         </div>
                                         
@@ -343,7 +402,7 @@
                             </div>
                         </div>
                         <div class="col-lg-6 col-xs-12 col-sm-12">
-                            <div class="portlet light ">
+                            <div class="portlet light" style="height: 490px!important;">
                                 <div class="portlet-title">
                                     <div class="caption">
                                         <i class="icon-bubble font-dark hide"></i>
@@ -351,6 +410,8 @@
                                     </div>
                                 </div>
                                 <div class="portlet-body">
+                                    <br>
+                                    <br>
                                     <div class="mt-element-card mt-element-overlay">
                                     	
                                         <div class="row">
@@ -360,11 +421,9 @@
                                                     <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
                                                         <div class="mt-card-item">
                                                             <div class="mt-card-avatar mt-overlay-1">
-                                                            	@if($user->profiles->image)
-                                                                <img src="{{$user->profiles->image}}" class="img-responsive" />
-                                                                @else
+                                                            	
                                                                 <img src="{{asset('assets/img/placeholder.jpg')}}" class="img-responsive" />
-                                                                @endif
+                                                              
                                                                 <div class="mt-overlay">
                                                                     <ul class="mt-info">
                                                                         <li>
@@ -378,7 +437,13 @@
                                                             </div>
                                                             <div class="mt-card-content">
                                                                 <h3 class="mt-card-name">{{$user->name}}</h3>
-                                                                <p class="mt-card-desc font-grey-mint">{{$user->profiles->occupation}}</p>
+                                                                <p class="mt-card-desc font-grey-mint">@if(isset($user->profiles->occupation) && $user->profiles->occupation != null)
+                                                                    {{$user->profiles->occupation}}
+                                                                    
+                                                                    @else
+                                                                    Not Specified!
+                                                                    @endif 
+                                                                    </p>
                                                                 <div class="mt-card-social">
                                                                     <ul>
                                                                         <li>
@@ -412,37 +477,22 @@
                         <div class="row">
                         <div class="col-md-6">
                             <!-- Begin: life time stats -->
-                            <div class="portlet light ">
+                            <div class="portlet light" style="margin-left: 15px!important;">
                                 <div class="portlet-title">
                                     <div class="caption">
                                         <i class="icon-share font-blue"></i>
                                         <span class="caption-subject font-blue bold uppercase">Overview</span>
                                         <span class="caption-helper">report overview...</span>
                                     </div>
-                                    <div class="actions">
-                                        <div class="btn-group">
-                                            <a class="btn green btn-circle btn-sm" href="javascript:;" data-toggle="dropdown" data-hover="dropdown" data-close-others="true"> Actions
-                                                <i class="fa fa-angle-down"></i>
-                                            </a>
-                                        </div>
-                                    </div>
                                 </div>
                                 <div class="portlet-body">
                                     <div class="tabbable-line">
                                         <ul class="nav nav-tabs">
                                             <li class="active">
-                                                <a href="#overview_1" data-toggle="tab"> Top Selling </a>
+                                                <a href="#overview_1" data-toggle="tab"> Top 5 Selling </a>
                                             </li>
                                             <li>
                                                 <a href="#overview_2" data-toggle="tab"> Online Employee </a>
-                                            </li>
-                                            <li>
-                                                <a href="#overview_3" data-toggle="tab"> New Customers </a>
-                                            </li>
-                                            <li class="dropdown">
-                                                <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown"> Orders
-                                                    <i class="fa fa-angle-down"></i>
-                                                </a>
                                             </li>
                                         </ul>
                                         <div class="tab-content">
@@ -452,9 +502,8 @@
                                                         <thead>
                                                             <tr>
                                                                 <th> Product Name </th>
-                                                                <th> Price </th>
+                                                                <th> Item Code</th>
                                                                 <th> Sold </th>
-                                                                <th> </th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
@@ -464,12 +513,8 @@
                                                                 <td>
                                                                     {{$sell->name}}
                                                                 </td>
-                                                                <td>{{$sell->item_code}} </td>
+                                                                <td><span class="badge badge-info">{{$sell->item_code}}</span> </td>
                                                                 <td> {{$sell->top_selling}} </td>
-                                                                <td>
-                                                                    <a href="javascript:;" class="btn btn-sm btn-default">
-                                                                        <i class="fa fa-search"></i> View </a>
-                                                                </td>
                                                             </tr>
                                                             @endforeach
                                                             @endif
@@ -484,8 +529,8 @@
                                                             <tr>
                                                                 <th> Employee</th>
                                                                 <th> Status </th>
-                                                                
-                                                            </tr>
+                                                                    
+                                                                </tr>
                                                         </thead>
                                                         <tbody>
                                                             @if(count($online_users)>0)
@@ -516,246 +561,13 @@
                                                         </div>
                                                 </div>
                                             </div>
-                                            <div class="tab-pane" id="overview_3">
-                                                <div class="table-responsive">
-                                                    <table class="table table-striped table-hover table-bordered">
-                                                        <thead>
-                                                            <tr>
-                                                                <th> Customer Name </th>
-                                                                <th> Total Orders </th>
-                                                                <th> Total Amount </th>
-                                                                <th> </th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <tr>
-                                                                <td>
-                                                                    <a href="javascript:;"> David Wilson </a>
-                                                                </td>
-                                                                <td> 3 </td>
-                                                                <td> $625.50 </td>
-                                                                <td>
-                                                                    <a href="javascript:;" class="btn btn-sm btn-default">
-                                                                        <i class="fa fa-search"></i> View </a>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <a href="javascript:;"> Amanda Nilson </a>
-                                                                </td>
-                                                                <td> 4 </td>
-                                                                <td> $12625.50 </td>
-                                                                <td>
-                                                                    <a href="javascript:;" class="btn btn-sm btn-default">
-                                                                        <i class="fa fa-search"></i> View </a>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <a href="javascript:;"> Paul Strong </a>
-                                                                </td>
-                                                                <td> 1 </td>
-                                                                <td> $890.85 </td>
-                                                                <td>
-                                                                    <a href="javascript:;" class="btn btn-sm btn-default">
-                                                                        <i class="fa fa-search"></i> View </a>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <a href="javascript:;"> Jhon Doe </a>
-                                                                </td>
-                                                                <td> 2 </td>
-                                                                <td> $125.00 </td>
-                                                                <td>
-                                                                    <a href="javascript:;" class="btn btn-sm btn-default">
-                                                                        <i class="fa fa-search"></i> View </a>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <a href="javascript:;"> Bill Chang </a>
-                                                                </td>
-                                                                <td> 45 </td>
-                                                                <td> $12,125.70 </td>
-                                                                <td>
-                                                                    <a href="javascript:;" class="btn btn-sm btn-default">
-                                                                        <i class="fa fa-search"></i> View </a>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <a href="javascript:;"> Paul Strong </a>
-                                                                </td>
-                                                                <td> 1 </td>
-                                                                <td> $890.85 </td>
-                                                                <td>
-                                                                    <a href="javascript:;" class="btn btn-sm btn-default">
-                                                                        <i class="fa fa-search"></i> View </a>
-                                                                </td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                            </div>
-                                            <div class="tab-pane" id="overview_4">
-                                                <div class="table-responsive">
-                                                    <table class="table table-striped table-hover table-bordered">
-                                                        <thead>
-                                                            <tr>
-                                                                <th> Customer Name </th>
-                                                                <th> Date </th>
-                                                                <th> Amount </th>
-                                                                <th> Status </th>
-                                                                <th> </th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <tr>
-                                                                <td>
-                                                                    <a href="javascript:;"> David Wilson </a>
-                                                                </td>
-                                                                <td> 3 Jan, 2013 </td>
-                                                                <td> $625.50 </td>
-                                                                <td>
-                                                                    <span class="label label-sm label-warning"> Pending </span>
-                                                                </td>
-                                                                <td>
-                                                                    <a href="javascript:;" class="btn btn-sm btn-default">
-                                                                        <i class="fa fa-search"></i> View </a>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <a href="javascript:;"> Amanda Nilson </a>
-                                                                </td>
-                                                                <td> 13 Feb, 2013 </td>
-                                                                <td> $12625.50 </td>
-                                                                <td>
-                                                                    <span class="label label-sm label-warning"> Pending </span>
-                                                                </td>
-                                                                <td>
-                                                                    <a href="javascript:;" class="btn btn-sm btn-default">
-                                                                        <i class="fa fa-search"></i> View </a>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <a href="javascript:;"> Paul Strong </a>
-                                                                </td>
-                                                                <td> 1 Jun, 2013 </td>
-                                                                <td> $890.85 </td>
-                                                                <td>
-                                                                    <span class="label label-sm label-success"> Success </span>
-                                                                </td>
-                                                                <td>
-                                                                    <a href="javascript:;" class="btn btn-sm btn-default">
-                                                                        <i class="fa fa-search"></i> View </a>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <a href="javascript:;"> Jhon Doe </a>
-                                                                </td>
-                                                                <td> 20 Mar, 2013 </td>
-                                                                <td> $125.00 </td>
-                                                                <td>
-                                                                    <span class="label label-sm label-success"> Success </span>
-                                                                </td>
-                                                                <td>
-                                                                    <a href="javascript:;" class="btn btn-sm btn-default">
-                                                                        <i class="fa fa-search"></i> View </a>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <a href="javascript:;"> Bill Chang </a>
-                                                                </td>
-                                                                <td> 29 May, 2013 </td>
-                                                                <td> $12,125.70 </td>
-                                                                <td>
-                                                                    <span class="label label-sm label-info"> In Process </span>
-                                                                </td>
-                                                                <td>
-                                                                    <a href="javascript:;" class="btn btn-sm btn-default">
-                                                                        <i class="fa fa-search"></i> View </a>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <a href="javascript:;"> Paul Strong </a>
-                                                                </td>
-                                                                <td> 1 Jun, 2013 </td>
-                                                                <td> $890.85 </td>
-                                                                <td>
-                                                                    <span class="label label-sm label-success"> Success </span>
-                                                                </td>
-                                                                <td>
-                                                                    <a href="javascript:;" class="btn btn-sm btn-default">
-                                                                        <i class="fa fa-search"></i> View </a>
-                                                                </td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <!-- End: life time stats -->
                         </div>
-                        <div class="col-md-6">
-                            <!-- Begin: life time stats -->
-                            <!-- BEGIN PORTLET-->
-                            <div class="portlet light ">
-                                <div class="portlet-title tabbable-line">
-                                    <div class="caption">
-                                        <i class="icon-globe font-red"></i>
-                                        <span class="caption-subject font-red bold uppercase">Revenue</span>
-                                    </div>
-                                    <ul class="nav nav-tabs">
-                                        <li class="active">
-                                            <a href="#portlet_ecommerce_tab_1" data-toggle="tab"> Amounts </a>
-                                        </li>
-                                        <li>
-                                            <a href="#portlet_ecommerce_tab_2" id="statistics_orders_tab" data-toggle="tab"> Orders </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="portlet-body">
-                                    <div class="tab-content">
-                                        <div class="tab-pane active" id="portlet_ecommerce_tab_1">
-                                            <div id="statistics_1" class="chart"> </div>
-                                        </div>
-                                        <div class="tab-pane" id="portlet_ecommerce_tab_2">
-                                            <div id="statistics_2" class="chart"> </div>
-                                        </div>
-                                    </div>
-                                    <div class="well margin-top-20">
-                                        <div class="row">
-                                            <div class="col-md-3 col-sm-3 col-xs-6 text-stat">
-                                                <span class="label label-success"> Revenue: </span>
-                                                <h3>$1,234,112.20</h3>
-                                            </div>
-                                            <div class="col-md-3 col-sm-3 col-xs-6 text-stat">
-                                                <span class="label label-info"> Tax: </span>
-                                                <h3>$134,90.10</h3>
-                                            </div>
-                                            <div class="col-md-3 col-sm-3 col-xs-6 text-stat">
-                                                <span class="label label-danger"> Shipment: </span>
-                                                <h3>$1,134,90.10</h3>
-                                            </div>
-                                            <div class="col-md-3 col-sm-3 col-xs-6 text-stat">
-                                                <span class="label label-warning"> Orders: </span>
-                                                <h3>235090</h3>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- End: life time stats -->
-                        </div>
+                        
                     </div>
                     </div>
         </div>
